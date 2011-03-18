@@ -1,7 +1,32 @@
 require 'spec_helper'
 
-module OrderBookTest
-  describe OrderBook do
+describe OrderBook::OrderBookItem do
+  describe '#new with empty initializer' do
+    subject { OrderBook::OrderBookItem.new }
+
+    its (:id) {should == nil}
+    its (:rev) {should == nil}
+    its (:price) {should == nil}
+    its (:volume) {should == nil}
+    its (:buysell) {should == nil}
+    its (:order_book) {should == nil}
   end
-end # module OrderBookTest
+
+  describe '#new with opts' do
+    subject { OrderBook::OrderBookItem.new :id => 12,
+                                           :rev => 123,
+                                           :price => 1234,
+                                           :volume => 12345,
+                                           :buysell => 1,
+                                           :order_book => 123456
+    }
+
+    its (:id) {should == 12}
+    its (:rev) {should == 123}
+    its (:price) {should == 1234}
+    its (:volume) {should == 12345}
+    its (:buysell) {should == 1}
+    its (:order_book) {should == 123456}
+  end
+end
 

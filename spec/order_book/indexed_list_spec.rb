@@ -1,0 +1,21 @@
+require 'spec_helper'
+require 'order_book/shared_examples.rb'
+
+describe OrderBook::IndexedList do
+  subject { OrderBook::IndexedList.new }
+  let(:item_index) { @item.object_id }
+
+  before(:each) do
+    @item = Object.new
+    @item1 = Object.new
+  end
+
+  it_behaves_like 'index_list'
+
+  describe '#free' do
+    it 'is noop by default (used to free/cleanup removed items in subclasses)' do
+      subject.free(@item).should == nil
+    end
+  end
+end
+
