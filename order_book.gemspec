@@ -4,8 +4,8 @@
 Gem::Specification.new do |gem|
   gem.name        = "order_book"
   gem.version     = File.open('VERSION').read.strip # = ::OrderBook::VERSION # - conflicts with Bundler
-  gem.summary     = "FIXME: New project order_book"
-  gem.description = "FIXME: New project order_book"
+  gem.summary     = "Basic structures for DOM models"
+  gem.description = "Basic structures used to create DOM models"
   gem.authors     = ["arvicco"]
   gem.email       = "arvitallian@gmail.com"
   gem.homepage    = "http://github.com/arvicco/order_book"
@@ -29,8 +29,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency("rspec", [">= 2.0.0"])
   gem.add_development_dependency("cucumber", [">= 0"])
   gem.add_dependency("bundler", [">= 1.0.0"])
-
-  # gem.rubyforge_project = ""
-  # gem.rubygems_version  = `gem -v` # - Seems to conflict with Bundler
-  # gem.required_rubygems_version = ">= 1.3.6"
 end

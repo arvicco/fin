@@ -4,24 +4,22 @@ url: http://github.com/arvicco/order_book
 
 == DESCRIPTION:
 
-FIXME (describe your package)
+Basic structures used to create DOM models.
 
 == FEATURES/PROBLEMS:
 
-* FIXME (list of features or problems)
+OrderBook structures are used to accumulate, analyse and visualize streams of market
+order data (either in aggregated or full order log form). They are required by the
+client and gateway modules that deal with market order data streams/artefacts.
 
-== SYNOPSIS:
-
-  FIXME (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIXME (list of requirements)
+OrderBook data structures need to be:
+1) memory-efficient
+2) thread-safe (without too much synchronization penalty)
+3) iteration-safe (adding new element while iterating should not raise exception)
 
 == INSTALL:
 
   $ sudo gem install order_book
-* FIXME anything else?
 
 == LICENSE:
-Copyright (c) 2010 Arvicco. See LICENSE for details.
+Copyright (c) 2011 Arvicco. See LICENSE for details.

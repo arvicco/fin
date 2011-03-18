@@ -15,7 +15,3 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 end
-
-module OrderBookTest
-
-end # module OrderBookTest
