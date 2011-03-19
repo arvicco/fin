@@ -18,6 +18,7 @@ module Orders
     def add item
       if item.price > 0
         @changed = true # Marking DOM as changed
+        item.order_book = self
         super
       else
         self
@@ -27,6 +28,7 @@ module Orders
     # Does not call super!
     def remove item
       @changed = true if delete index item # Marking DOM as changed
+      item.order_book = nil
       self
     end
   end

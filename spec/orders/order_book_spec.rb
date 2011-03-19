@@ -37,6 +37,12 @@ describe Orders::OrderBook do
         subject.add(@zero_price_item)
         subject.changed.should == false
       end
+
+      it 'does not set item`s order_book property' do
+        subject.remove(@zero_price_item)
+        @zero_price_item.order_book.should == nil
+      end
+
     end
 
     it 'sets changed status to true if item was added' do
@@ -44,6 +50,10 @@ describe Orders::OrderBook do
       subject.changed.should == true
     end
 
+    it 'sets added item`s order_book property' do
+      subject.add(@item1)
+      @item1.order_book.should == subject
+    end
   end
 
   describe 'removing item' do
@@ -55,6 +65,11 @@ describe Orders::OrderBook do
     it 'sets changed status to true if item was removed' do
       subject.remove(@item)
       subject.changed.should == true
+    end
+
+    it 'unsets removed item`s order_book property' do
+      subject.remove(@item)
+      @item.order_book.should == nil
     end
 
     context 'that is not in list' do
