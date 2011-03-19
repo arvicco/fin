@@ -20,7 +20,7 @@ Data structures need to be:
 
 == INSTALL:
 
-  $ sudo gem install order_book
+  $ sudo gem install orders
 
 == LICENSE:
 Copyright (c) 2011 Arvicco. See LICENSE for details.
