@@ -11,11 +11,5 @@ describe OrderBook::IndexedList do
   end
 
   it_behaves_like 'index_list'
-
-  describe '#free' do
-    it 'is noop by default (used to free/cleanup removed items in subclasses)' do
-      subject.free(@item).should == nil
-    end
-  end
 end
 

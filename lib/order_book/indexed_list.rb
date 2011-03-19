@@ -8,27 +8,23 @@ module OrderBook
       item.object_id
     end
 
-    # Noop by default (used to free/cleanup removed items in subclasses)
-    def free item
-    end
-
     # Adds new item to the list (replaces item with the same index)
     def add item
       self[index item] = item
       self
     end
 
+    alias << add
+
     # Removes item from the list
     def remove item
-      free item
       delete index item
       self
     end
 
-    # Calls #free with each item being cleared
+    # Calls #remove for each item in list
     def clear
-      each_value { |item| free item }
-      super
+      each_value { |item| remove item }
     end
 
     # Yields list items in order of their index
@@ -41,5 +37,8 @@ module OrderBook
         ary
       end
     end
+
+    # Make direct setter private
+    private :[]=
   end
 end

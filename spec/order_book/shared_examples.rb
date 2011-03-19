@@ -1,13 +1,22 @@
 shared_examples_for 'index_list' do
-  describe '#index' do
-    it 'indexes arbitrary items by object_id (default)' do
-      subject.index(@item).should == item_index
+
+  describe 'items get/set' do
+    it 'returns item from list by their index' do
+      subject.add(@item)[item_index].should == @item
+    end
+
+    it 'returns nil when item with requested index not in collection' do
+      subject[item_index].should == nil
+    end
+
+    it 'is not possible to add item into collection directly' do
+      expect { subject[item_index] = @item }.to raise_error NoMethodError
     end
   end
 
-  describe '#free' do
-    it 'is defined' do
-      expect { subject.free(@item) }.to_not raise_error
+  describe '#index' do
+    it 'indexes arbitrary items by their index (redefined in subclasses)' do
+      subject.index(@item).should == item_index
     end
   end
 
@@ -20,11 +29,19 @@ shared_examples_for 'index_list' do
       subject.add(@item)
       subject.values.should include @item
       subject[item_index].should == @item
+      subject.size.should == 1
+    end
+
+    it 'adds items to using alias <<' do
+      subject << @item
+      subject.values.should include @item
+      subject[item_index].should == @item
+      subject.size.should == 1
     end
   end
 
-  describe '#add' do
-    before(:each) { subject.add(@item).add(@item1) }
+  describe '#remove' do
+    before(:each) { subject.add(@item).add(@item1).size.should == 2 }
 
     it 'returns self for easy method chaining' do
       subject.remove(@item).should == subject
@@ -34,11 +51,7 @@ shared_examples_for 'index_list' do
       subject.remove(@item)
       subject.values.should_not include @item
       subject[item_index].should == nil
-    end
-
-    it 'ensures that #free method is called with item before remove' do
-      subject.should_receive(:free).with(@item).once
-      subject.remove(@item)
+      subject.size.should == 1
     end
   end
 
@@ -50,8 +63,8 @@ shared_examples_for 'index_list' do
       subject.should be_empty
     end
 
-    it 'ensures that #free method is called once for each item in list' do
-      subject.should_receive(:free).twice
+    it 'ensures that #remove method is called once for each item in list' do
+      subject.should_receive(:remove).twice
       subject.clear
     end
   end
