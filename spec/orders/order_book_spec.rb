@@ -1,14 +1,14 @@
 require 'spec_helper'
-require 'order_book/shared_examples.rb'
+require 'orders/shared_examples.rb'
 
-describe OrderBook::OrderBook do
-  subject { OrderBook::OrderBook.new 123456 }
+describe Orders::OrderBook do
+  subject { Orders::OrderBook.new 123456 }
   let(:item_index) { @item.price }
 
   before(:each) do
-    @item = OrderBook::OrderBookItem.new :id => 0, :price => 20
-    @item1 = OrderBook::OrderBookItem.new :id => 1, :price => 10
-    @zero_price_item = OrderBook::OrderBookItem.new :id => 2, :price => 0
+    @item = Orders::OrderBookItem.new :id => 0, :price => 20
+    @item1 = Orders::OrderBookItem.new :id => 1, :price => 10
+    @zero_price_item = Orders::OrderBookItem.new :id => 2, :price => 0
   end
 
   it_behaves_like 'index_list'

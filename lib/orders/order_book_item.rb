@@ -1,4 +1,4 @@
-module OrderBook
+module Orders
   # Represents single price level for OrderBook for one security
   # (aggregate bid or ask with aggregate volume)
   #      // элемент "строка в стакане"

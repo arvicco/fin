@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe OrderBook::OrderBookItem do
+describe Orders::OrderBookItem do
   describe '#new with empty initializer' do
-    subject { OrderBook::OrderBookItem.new }
+    subject { Orders::OrderBookItem.new }
 
     its (:isin_id) {should == nil}
     its (:id) {should == nil}
@@ -14,7 +14,7 @@ describe OrderBook::OrderBookItem do
   end
 
   describe '#new with opts' do
-    subject { OrderBook::OrderBookItem.new :isin_id => 1234567,
+    subject { Orders::OrderBookItem.new :isin_id => 1234567,
                                            :id => 12,
                                            :rev => 123,
                                            :price => 1234,

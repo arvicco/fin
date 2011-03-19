@@ -1,6 +1,6 @@
-require 'order_book/order_book'
+require 'orders/order_book'
 
-module OrderBook
+module Orders
   # Represents DOM (OrderBook) for one security
   # индекс стакана по цене
   class OrderList < IndexedList
@@ -16,7 +16,7 @@ module OrderBook
     end
 
     def add item
-      @order_books[item.isin_id] ||= OrderBook::OrderBook.new item.isin_id
+      @order_books[item.isin_id] ||= Orders::OrderBook.new item.isin_id
       super
     end
   end

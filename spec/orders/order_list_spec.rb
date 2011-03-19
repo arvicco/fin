@@ -1,17 +1,17 @@
 require 'spec_helper'
 require 'spec_helper'
-require 'order_book/shared_examples.rb'
+require 'orders/shared_examples.rb'
 
 #noinspection RubyResolve
-describe OrderBook::OrderList do
-  subject { OrderBook::OrderList.new }
+describe Orders::OrderList do
+  subject { Orders::OrderList.new }
   let(:item_index) { @item.id }
 
   before(:each) do
-    @item = OrderBook::OrderBookItem.new :id => 0, :price => 20
-    @item1 = OrderBook::OrderBookItem.new :id => 1, :price => 10
-    @zero_price_item = OrderBook::OrderBookItem.new :id => 2, :price => 0
-    @repeat_zero_price_item = OrderBook::OrderBookItem.new :id => 0, :price => 0
+    @item = Orders::OrderBookItem.new :id => 0, :price => 20
+    @item1 = Orders::OrderBookItem.new :id => 1, :price => 10
+    @zero_price_item = Orders::OrderBookItem.new :id => 2, :price => 0
+    @repeat_zero_price_item = Orders::OrderBookItem.new :id => 0, :price => 0
   end
 
   it_behaves_like 'index_list'
@@ -23,7 +23,7 @@ describe OrderBook::OrderList do
       it 'creates appropriate order book' do
         subject.add(@item)
         subject.order_books.should_not be_empty
-        subject.order_books[@item.isin_id].should be_an OrderBook::OrderBook
+        subject.order_books[@item.isin_id].should be_an Orders::OrderBook
         subject.order_books.should have(1).book
       end
 

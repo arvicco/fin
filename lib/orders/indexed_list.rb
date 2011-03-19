@@ -1,4 +1,4 @@
-module OrderBook
+module Orders
   # Abstract (equivalent of SortedList)
   # базовый класс "сортированный список"
   class IndexedList < Hash

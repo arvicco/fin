@@ -2,8 +2,8 @@
 # Refer to: http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/
 
 Gem::Specification.new do |gem|
-  gem.name        = "order_book"
-  gem.version     = File.open('VERSION').read.strip # = ::OrderBook::VERSION # - conflicts with Bundler
+  gem.name        = "orders"
+  gem.version     = File.open('VERSION').read.strip # = ::Orders::VERSION # - conflicts with Bundler
   gem.summary     = "Basic structures for DOM models"
   gem.description = "Basic structures used to create DOM models"
   gem.authors     = ["arvicco"]
@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   gem.extra_rdoc_files = ["LICENSE", "HISTORY", "README.rdoc"]
     
   # Dependencies
-  gem.add_development_dependency("rspec", [">= 2.0.0"])
+  gem.add_development_dependency("rspec", [">= 2.5.0"])
   gem.add_development_dependency("cucumber", [">= 0"])
   gem.add_dependency("bundler", [">= 1.0.0"])
 end

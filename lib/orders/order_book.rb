@@ -1,4 +1,4 @@
-module OrderBook
+module Orders
   # Represents DOM (OrderBook) for one security
   # индекс стакана по цене
   class OrderBook < IndexedList

@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'order_book/shared_examples.rb'
+require 'orders/shared_examples.rb'
 
-describe OrderBook::IndexedList do
-  subject { OrderBook::IndexedList.new }
+describe Orders::IndexedList do
+  subject { Orders::IndexedList.new }
   let(:item_index) { @item.object_id }
 
   before(:each) do

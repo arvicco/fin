@@ -1,6 +1,6 @@
-= order_book
-by: Arvicco
-url: http://github.com/arvicco/order_book
+= orders
+by:: Arvicco
+url:: http://github.com/arvicco/orders
 
 == DESCRIPTION:
 
@@ -8,11 +8,12 @@ Basic structures used to create DOM models.
 
 == FEATURES/PROBLEMS:
 
-OrderBook structures are used to accumulate, analyse and visualize streams of market
+Enclosed structures are used to accumulate, analyse and visualize streams of market
 order data (either in aggregated or full order log form). They are required by the
-client and gateway modules that deal with market order data streams/artefacts.
+client and gateway modules that deal with market order data streams and derived
+artefacts (such as OrderBooks).
 
-OrderBook data structures need to be:
+Data structures need to be:
 1) memory-efficient
 2) thread-safe (without too much synchronization penalty)
 3) iteration-safe (adding new element while iterating should not raise exception)
