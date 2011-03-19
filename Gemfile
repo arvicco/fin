@@ -19,11 +19,11 @@ source :gemcutter
 
 group :cucumber do
   gem 'cucumber'
-  gem 'rspec', '~>2.5.0'
+  gem 'rspec', '>=2.5.0', :require => ['rspec/expectations', 'rspec/stubs/cucumber']
   # add more here...
 end
 
 group :test do # Group for testing code on Windows (win, win_gui)
-  gem 'rspec', '~>2.5.0'
+  gem 'rspec', '>=2.5.0', :require => ['rspec', 'rspec/autorun']
 end
 
