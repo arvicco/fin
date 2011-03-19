@@ -17,6 +17,7 @@ module Orders
 
     def add item
       @order_books[item.isin_id] ||= Orders::OrderBook.new item.isin_id
+      @order_books[item.isin_id].add item
       super
     end
   end
