@@ -8,6 +8,7 @@ describe Orders::IndexedList do
   before(:each) do
     @item = Object.new
     @item1 = Object.new
+    @item2 = Object.new
   end
 
   it_behaves_like 'index_list'

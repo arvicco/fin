@@ -52,8 +52,9 @@ describe Orders::OrderList do
     @item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 20
     @item1 = Orders::OrderBookItem.new :isin_id => 1234, :id => 1, :price => 10
     @same_isin_item = @item1
-    @diff_isin_item = Orders::OrderBookItem.new :isin_id => 5678, :id => 1, :price => 10
-    @zero_price_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 2, :price => 0
+    @item2 = Orders::OrderBookItem.new :isin_id => 5678, :id => 2, :price => 10
+    @diff_isin_item = @item2
+    @zero_price_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 3, :price => 0
     @repeat_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 13
     @repeat_zero_price_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 0
   end

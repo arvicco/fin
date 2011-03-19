@@ -22,9 +22,18 @@ module Orders
       self
     end
 
-    # Calls #remove for each item in list
+    # Removes item with given index from the list
+    def delete_by_index index
+      remove self[index] if self[index]
+    end
+
+    # Removes either all items, or items for which given block returns trueish value
     def clear
-      each_value { |item| remove item }
+      if block_given?
+        each {|item| remove item if yield item}
+      else
+        each_value { |item| remove item }
+      end
     end
 
     # Yields list items in order of their index

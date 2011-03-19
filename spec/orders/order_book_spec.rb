@@ -7,8 +7,9 @@ describe Orders::OrderBook do
 
   before(:each) do
     @item = Orders::OrderBookItem.new :id => 0, :price => 20
-    @item1 = Orders::OrderBookItem.new :id => 1, :price => 10
-    @zero_price_item = Orders::OrderBookItem.new :id => 2, :price => 0
+    @item1 = Orders::OrderBookItem.new :id => 1, :price => 15
+    @item2 = Orders::OrderBookItem.new :id => 2, :price => 10
+    @zero_price_item = Orders::OrderBookItem.new :id => 3, :price => 0
   end
 
   it_behaves_like 'index_list'
