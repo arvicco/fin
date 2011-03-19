@@ -1,4 +1,4 @@
-require 'order_book'
+require 'orders'
 require 'pathname'
 
 require 'bundler'
