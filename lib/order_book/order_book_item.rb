@@ -10,7 +10,7 @@ module OrderBook
   #        buysell       : longint; // покупка(1)/продажа(2)
   #        order_book      : tOrderBook;
   class OrderBookItem
-    attr_accessor :id, :rev, :price, :volume, :buysell, :order_book
+    attr_accessor :isin_id, :id, :rev, :price, :volume, :buysell, :order_book
 
     def initialize opts = {}
       opts.each {|key, value| send "#{key}=", value}

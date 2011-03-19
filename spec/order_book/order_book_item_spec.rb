@@ -4,6 +4,7 @@ describe OrderBook::OrderBookItem do
   describe '#new with empty initializer' do
     subject { OrderBook::OrderBookItem.new }
 
+    its (:isin_id) {should == nil}
     its (:id) {should == nil}
     its (:rev) {should == nil}
     its (:price) {should == nil}
@@ -13,7 +14,8 @@ describe OrderBook::OrderBookItem do
   end
 
   describe '#new with opts' do
-    subject { OrderBook::OrderBookItem.new :id => 12,
+    subject { OrderBook::OrderBookItem.new :isin_id => 1234567,
+                                           :id => 12,
                                            :rev => 123,
                                            :price => 1234,
                                            :volume => 12345,
@@ -21,6 +23,7 @@ describe OrderBook::OrderBookItem do
                                            :order_book => 123456
     }
 
+    its (:isin_id) {should == 1234567}
     its (:id) {should == 12}
     its (:rev) {should == 123}
     its (:price) {should == 1234}

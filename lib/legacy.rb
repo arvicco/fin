@@ -408,6 +408,7 @@ module VCL
       end
     end
 
+    # process_record
     def addrecord isin_id, id, rev, price, volume, buysell
       item = self[id] || OrderBookItem.new
 
