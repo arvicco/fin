@@ -16,13 +16,6 @@ shared_examples_for 'removing items' do
       subject.values.should include @item1
       subject.size.should == 1
     end
-
-    it 'is synchronized to allow other threads iterations' do
-      expect_sync 3
-      remove_operation @item
-      remove_operation @item1
-      remove_operation @item2
-    end
   end
 
   context 'deleting non-included items' do
@@ -80,22 +73,9 @@ shared_examples_for 'adding items' do
     subject[item_index].should == @item
     subject.size.should == 1
   end
-
-  it 'is synchronized to allow other threads iterations' do
-    expect_sync 3
-    add_operation @item
-    add_operation @item1
-    subject << @item2
-  end
 end
 
 shared_examples_for 'index_list' do
-
-  def expect_sync times = 1
-    mutex = subject.instance_variable_get(:@iteration_mutex)
-    mutex.should be_a Mutex
-    mutex.should_receive(:synchronize).exactly(times).times
-  end
 
   describe 'items get/set' do
     it 'returns item from list by their index' do
@@ -219,12 +199,6 @@ shared_examples_for 'index_list' do
         else
           subject.each.should == [@item1, @item]
         end
-      end
-
-      it 'is synchronized to allow other threads add items while we`re iterating' do
-        expect_sync 2
-        subject.each { |item|}
-        subject.each
       end
     end
   end

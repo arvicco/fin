@@ -21,7 +21,7 @@ module Orders
     # Adds new item to the list if it passes check
     # (replaces item with the same index)
     def add? item
-      @iteration_mutex.synchronize { self[index item] = item } if check item
+      self[index item] = item if check item
     end
 
     # Adds new item to the list, returning self for easy chaining
@@ -34,7 +34,7 @@ module Orders
 
     # Removes item from the list, returns nil if nothing removed
     def remove? item
-      @iteration_mutex.synchronize { delete index item }
+      delete index item
     end
 
     # Removes item from the list
@@ -59,12 +59,10 @@ module Orders
 
     # Yields list items (but NOT keys!) in order of their index
     def each
-      keys_dup = []
-      @iteration_mutex.synchronize { keys_dup = keys.dup }
       if block_given?
-        keys_dup.sort.each { |key| yield self[key] }
+        keys.sort.each { |key| yield self[key] }
       else
-        keys_dup.sort.map { |key| self[key] }
+        keys.sort.map { |key| self[key] }
       end
     end
 
