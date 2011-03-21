@@ -3,7 +3,9 @@ module Orders
   # индекс стакана по цене
   class OrderBook < IndexedList
 
-    attr_accessor :isin_id, :changed
+    attr_accessor :changed
+    attr_reader :isin_id
+    alias isin isin_id
 
     def initialize isin_id
       @isin_id = isin_id
@@ -15,21 +17,24 @@ module Orders
       item.price
     end
 
-    def add item
-      if item.price > 0
+    def check item
+      item.price > 0
+    end
+
+    def add? item
+      if super
         @changed = true # Marking DOM as changed
         item.order_book = self
-        super
-      else
-        self
+        item
       end
     end
 
-    # Does not call super!
-    def remove item
-      @changed = true if delete index item # Marking DOM as changed
-      item.order_book = nil
-      self
+    def remove? item
+      if super
+        @changed = true # Marking DOM as changed
+        item.order_book = nil
+        item
+      end
     end
   end
 end

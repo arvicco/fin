@@ -11,9 +11,16 @@ module Orders
   #        order_book      : tOrderBook;
   class OrderBookItem
     attr_accessor :isin_id, :id, :rev, :price, :volume, :buysell, :order_book
+    alias isin isin_id
+    alias isin= isin_id=
 
     def initialize opts = {}
-      opts.each {|key, value| send "#{key}=", value}
+      opts.each { |key, value| send "#{key}=", value }
+    end
+
+    def price= val
+      val = val.to_f
+      @price = val.round == val ? val.to_i : val
     end
 
     def inspect

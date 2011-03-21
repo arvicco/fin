@@ -12,5 +12,9 @@ describe Orders::IndexedList do
   end
 
   it_behaves_like 'index_list'
+
+  it 'checks all items as worthy, by default' do
+    subject.check(@item).should == true
+  end
 end
 

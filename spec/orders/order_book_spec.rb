@@ -15,7 +15,28 @@ describe Orders::OrderBook do
   it_behaves_like 'index_list'
 
   its (:isin_id) {should == 123456}
+  its (:isin) {should == 123456}
   its (:changed) {should == true}
+
+  it 'is possible to set its #changed attribute' do
+    subject.changed = false
+    subject.changed.should == false
+  end
+
+  it 'but #isin(_id) attribute is not settable' do
+    expect { subject.isin_id = 1313 }.to raise_error NoMethodError
+    expect { subject.isin = 1313 }.to raise_error NoMethodError
+  end
+
+  describe '#check' do
+    it 'fails if item.price <= 0' do
+      subject.check(@zero_price_item).should == false
+    end
+
+    it 'returns true otherwise' do
+      subject.check(@item).should == true
+    end
+  end
 
   describe 'adding item' do
     before(:each) do

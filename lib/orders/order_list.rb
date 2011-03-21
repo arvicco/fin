@@ -7,7 +7,10 @@ module Orders
     attr_accessor :order_books
 
     def initialize
-      @order_books = {}
+      @order_books = Hash.new do |hash, key|
+        hash[key] = Orders::OrderBook.new(key)
+        hash[key]
+      end
       super
     end
 
@@ -15,18 +18,21 @@ module Orders
       item.id
     end
 
-    def add item
-      order_book = @order_books[item.isin_id] ||= Orders::OrderBook.new(item.isin_id)
+    def add? item
       old_item = self[index item]
       remove old_item if old_item # Remove old item with the same index(id)
-      order_book.add item         # Add item to appropriate order book
-      super
+      if super
+        @order_books[item.isin_id].add item # Add item to appropriate order book
+        item
+      end
     end
 
-    def remove item
-      # Removing item from appropriate order book when it's deleted from order list
-      @order_books[item.isin_id].remove item if delete index item
-      self
+    def remove? item
+      if super
+        # Removing item from appropriate order book when it's deleted from order list
+        @order_books[item.isin_id].remove item
+        item
+      end
     end
   end
 end

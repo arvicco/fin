@@ -63,6 +63,13 @@ describe Orders::OrderList do
 
   specify { subject.order_books.should be_empty }
 
+  it 'returns order_book for any isin_id, even if it was not initialized' do
+    order_book = subject.order_books[1313]
+    order_book.should_not be_nil
+    order_book.should be_an Orders::OrderBook
+    order_book.should be_empty
+  end
+
   describe 'adding item' do
     let(:expected_number_of_books) { 1 }
 
@@ -129,6 +136,7 @@ describe Orders::OrderList do
           subject.add new_item
           order_book = subject.order_books[@item.isin_id]
           order_book.should_not have_key @item.price
+          order_book.size.should == 0
         end
       end
     end
