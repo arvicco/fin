@@ -17,3 +17,7 @@
 == 0.0.4 / 2011-03-21
 
 * Item#to_s added
+
+== 0.0.5 / 2011-03-21
+
+* Iteration-safety added
