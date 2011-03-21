@@ -27,4 +27,4 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
-  rspec (~> 2.5.0)
+  rspec (>= 2.5.0)

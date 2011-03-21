@@ -15,5 +15,11 @@ module Orders
     def initialize opts = {}
       opts.each {|key, value| send "#{key}=", value}
     end
+
+    def inspect
+      "#{id}:#{price}>#{volume}#{buysell == 1 ? '+' : '-'}"
+    end
+
+    alias to_s inspect
   end
 end

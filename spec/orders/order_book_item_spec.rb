@@ -30,6 +30,13 @@ describe Orders::OrderBookItem do
     its (:volume) {should == 12345}
     its (:buysell) {should == 1}
     its (:order_book) {should == 123456}
+
+   describe '#to_s, #inspect' do
+     it 'is just right' do
+       subject.to_s.should == "12:1234>12345+"
+       subject.inspect.should == "12:1234>12345+"
+     end
+   end
   end
 end
 
