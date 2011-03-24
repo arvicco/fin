@@ -22,7 +22,7 @@ module Orders
       old_item = self[index item]
       remove old_item if old_item # Remove old item with the same index(id)
       if super
-        @order_books[item.isin_id].add item # Add item to appropriate order book
+        @order_books[item.isin].add item # Add item to appropriate order book
         item
       end
     end
@@ -30,7 +30,7 @@ module Orders
     def remove? item
       if super
         # Removing item from appropriate order book when it's deleted from order list
-        @order_books[item.isin_id].remove item
+        @order_books[item.isin].remove item
         item
       end
     end
