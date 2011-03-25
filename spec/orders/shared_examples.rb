@@ -204,3 +204,52 @@ shared_examples_for 'index_list' do
   end
 end
 
+shared_examples_for 'adding_item_to_books' do
+  it_behaves_like 'creating_books'
+
+  it 'adds this item to appropriate order book' do
+    subject.add new_item
+    book = subject.books[new_item.isin_id]
+    book.should have_key new_item_book_index
+    book[new_item_book_index].should == new_item
+  end
+end
+
+shared_examples_for 'not_adding_item_to_books' do
+  it_behaves_like 'creating_books'
+
+  it 'does not add this item to order list' do
+    subject.add new_item
+    book = subject.books[new_item.isin_id]
+    book.should_not have_key new_item_book_index
+    book[new_item_book_index].should == nil
+  end
+end
+
+shared_examples_for 'creating_books' do
+  it 'creates appropriate order book' do
+    subject.add(new_item)
+    subject.books.should have(expected_number_of_books).books
+    book = subject.books[new_item.isin_id]
+    book.should be_an book_type
+    book.isin_id.should == new_item.isin_id
+  end
+
+  it 'sets item`s book property correctly' do
+    subject.add(new_item)
+    book = subject.books[new_item.isin_id]
+    if new_item_book_index == 0
+      case subject
+        when Orders::OrderList
+          new_item.book.should == nil
+        else
+          new_item.book.should == book
+      end
+    else
+      new_item.book.should == book
+    end
+  end
+end
+
+
+

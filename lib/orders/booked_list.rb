@@ -1,7 +1,11 @@
 require 'orders/order_book'
 
 module Orders
-  # Represents list of ALL Orders, indexed by id (replId)
+  # Represents list of ALL items coming from DataStream (orders, deals and such).
+  # In addition to main index by which items are listed here (replId, id, etc...),
+  # there is additional index related to a single security(isin) - @books.
+  # @books is a set of Books (such as OrderBook, DealBook), each related to a single isin.
+  #
   class BookedList < IndexedList
     attr_accessor :books
 

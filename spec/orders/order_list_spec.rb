@@ -1,52 +1,11 @@
 require 'spec_helper'
-require 'spec_helper'
 require 'orders/shared_examples.rb'
-
-shared_examples_for 'adding_item_to_books' do
-  it_behaves_like 'creating_books'
-
-  it 'adds this item to appropriate order book' do
-    subject.add new_item
-    order_book = subject.books[new_item.isin_id]
-    order_book.should have_key new_item.price
-    order_book[new_item.price].should == new_item
-  end
-end
-
-shared_examples_for 'not_adding_item_to_books' do
-  it_behaves_like 'creating_books'
-
-  it 'does not add this item to order list' do
-    subject.add new_item
-    order_book = subject.books[new_item.isin_id]
-    order_book.should_not have_key new_item.price
-    order_book[new_item.price].should == nil
-  end
-end
-
-shared_examples_for 'creating_books' do
-  it 'creates appropriate order book' do
-    subject.add(new_item)
-    subject.books.should have(expected_number_of_books).books
-    order_book = subject.books[new_item.isin_id]
-    order_book.should be_an Orders::OrderBook
-    order_book.isin_id.should == new_item.isin_id
-  end
-
-  it 'sets item`s order_book property correctly' do
-    subject.add(new_item)
-    if new_item.price == 0
-      new_item.book.should == nil
-    else
-      order_book = subject.books[new_item.isin_id]
-      new_item.book.should == order_book
-    end
-  end
-end
 
 describe Orders::OrderList do
   subject { Orders::OrderList.new }
   let(:item_index) { @item.id }
+  let (:new_item_book_index) {new_item.price}
+  let(:book_type) {Orders::OrderBook}
 
   before(:each) do
     @item = Orders::OrderItem.new :isin_id => 1234, :id => 0, :price => 20
@@ -66,7 +25,7 @@ describe Orders::OrderList do
   it 'returns order_book for any isin_id, even if it was not initialized' do
     order_book = subject.books[1313]
     order_book.should_not be_nil
-    order_book.should be_an Orders::OrderBook
+    order_book.should be_an book_type
     order_book.should be_empty
   end
 
@@ -140,11 +99,6 @@ describe Orders::OrderList do
         end
       end
     end
-
-    it 'sets changed status to true if item was added' do
-      subject.add(@item1)
-    end
-
   end
 
   describe 'removing item' do
@@ -178,7 +132,7 @@ describe Orders::OrderList do
 
       it 'deletes nothing from the list' do
         subject.remove(unwanted_item)
-        subject[@item.id].should == @item
+        subject[item_index].should == @item
         subject.size.should == expected_size
       end
     end
