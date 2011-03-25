@@ -1,16 +1,15 @@
 require 'spec_helper'
 require 'orders/shared_examples.rb'
 
-describe Orders::OrderBook do
-  subject { Orders::OrderBook.new 123456 }
-  let(:item_index) { @item.price }
+describe Orders::DealBook do
+  subject { Orders::DealBook.new 123456 }
+  let(:item_index) { @item.deal_id }
 
   before(:each) do
-    @item = Orders::OrderItem.new :id => 0, :price => 20, :isin => 123456
-    @item1 = Orders::OrderItem.new :id => 1, :price => 15, :isin => 123456
-    @item2 = Orders::OrderItem.new :id => 2, :price => 10, :isin => 123456
-    @zero_price_item = Orders::OrderItem.new :id => 3, :price => 0, :isin => 123456
-    @wrong_isin_item = Orders::OrderItem.new :id => 4, :price => 50, :isin => 456123
+    @item = Orders::DealItem.new :id => 0, :deal_id => 20, :isin => 123456
+    @item1 = Orders::DealItem.new :id => 1, :deal_id => 30, :isin => 123456
+    @item2 = Orders::DealItem.new :id => 2, :deal_id => 40, :isin => 123456
+    @wrong_isin_item = Orders::DealItem.new :id => 3, :deal_id => 50, :isin => 456123
   end
 
   it_behaves_like 'index_list'
@@ -30,16 +29,12 @@ describe Orders::OrderBook do
   end
 
   describe '#check' do
-    it 'fails if item is not an OrderItem' do
+    it 'fails if item is not a DealItem' do
       subject.check(1).should == false
     end
 
     it 'fails if item has wrong isin_id' do
       subject.check(@wrong_isin_item).should == false
-    end
-
-    it 'fails if item.price <= 0' do
-      subject.check(@zero_price_item).should == false
     end
 
     it 'returns true otherwise' do
@@ -51,29 +46,6 @@ describe Orders::OrderBook do
     before(:each) do
       subject.add(@item).size.should == 1
       subject.changed = false
-    end
-
-    context 'with zero price' do
-      it 'returns self' do
-        subject.add(@zero_price_item).should == subject
-      end
-
-      it 'does not add such item to the list' do
-        subject.add(@zero_price_item)
-        subject[subject.index @zero_price_item].should == nil
-        subject.size.should == 1
-      end
-
-      it 'does not set changed status to true' do
-        subject.add(@zero_price_item)
-        subject.changed.should == false
-      end
-
-      it 'does not set item`s book property' do
-        subject.remove(@zero_price_item)
-        @zero_price_item.book.should == nil
-      end
-
     end
 
     it 'sets changed status to true if item was added' do

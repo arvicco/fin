@@ -36,10 +36,10 @@ shared_examples_for 'creating_order_books' do
   it 'sets item`s order_book property correctly' do
     subject.add(new_item)
     if new_item.price == 0
-      new_item.order_book.should == nil
+      new_item.book.should == nil
     else
       order_book = subject.order_books[new_item.isin_id]
-      new_item.order_book.should == order_book
+      new_item.book.should == order_book
     end
   end
 end
@@ -49,14 +49,14 @@ describe Orders::OrderList do
   let(:item_index) { @item.id }
 
   before(:each) do
-    @item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 20
-    @item1 = Orders::OrderBookItem.new :isin_id => 1234, :id => 1, :price => 10
+    @item = Orders::OrderItem.new :isin_id => 1234, :id => 0, :price => 20
+    @item1 = Orders::OrderItem.new :isin_id => 1234, :id => 1, :price => 10
     @same_isin_item = @item1
-    @item2 = Orders::OrderBookItem.new :isin_id => 5678, :id => 2, :price => 10
+    @item2 = Orders::OrderItem.new :isin_id => 5678, :id => 2, :price => 10
     @diff_isin_item = @item2
-    @zero_price_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 3, :price => 0
-    @repeat_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 13
-    @repeat_zero_price_item = Orders::OrderBookItem.new :isin_id => 1234, :id => 0, :price => 0
+    @zero_price_item = Orders::OrderItem.new :isin_id => 1234, :id => 3, :price => 0
+    @repeat_item = Orders::OrderItem.new :isin_id => 1234, :id => 0, :price => 13
+    @repeat_zero_price_item = Orders::OrderItem.new :isin_id => 1234, :id => 0, :price => 0
   end
 
   it_behaves_like 'index_list'

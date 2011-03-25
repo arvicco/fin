@@ -3,15 +3,15 @@ require 'orders/book'
 module Orders
   # Represents DOM (OrderBook) for one security
   # индекс стакана по цене
-  class OrderBook < Book
+  class DealBook < Book
 
     def index item
-      item.price
+      item.deal_id
     end
 
     # Validation of the item being included
     def check item
-      item.is_a?(Orders::OrderItem) && item.isin == isin && item.price > 0
+      item.is_a?(Orders::DealItem) && item.isin == isin
     end
 
   end

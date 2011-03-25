@@ -1,8 +1,7 @@
 require 'orders/order_book'
 
 module Orders
-  # Represents DOM (OrderBook) for one security
-  # индекс стакана по цене
+  # Represents list of ALL Orders, indexed by id (replId)
   class OrderList < IndexedList
     attr_accessor :order_books
 

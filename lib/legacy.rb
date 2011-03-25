@@ -223,7 +223,7 @@ module VCL
     end
 
     def addrecord isin_id, id, rev, price, volume, buysell #(isin_id: longint; const id, rev: int64; const price, volume: double; buysell: longint): boolean
-      item = OrderBookItem.new
+      item = OrderItem.new
       item.id = id
       result, idx = search(item)
       if result
@@ -260,7 +260,7 @@ module VCL
     end
 
     def delrecord id #(const id: int64): boolean
-      item = OrderBookItem.new
+      item = OrderItem.new
       item.id = id
       result, idx = search(item)
       delete_at(idx) if result # удаляем из общей таблицы
@@ -276,8 +276,8 @@ module VCL
   end #class OrderList
 
 #      // элемент "строка в стакане"
-#type  pOrderBookItem  = ^tOrderBookItem;
-#      tOrderBookItem  = record
+#type  pOrderItem  = ^tOrderItem;
+#      tOrderItem  = record
 #        id         : int64;
 #        rev        : int64;
 #        price         : double;  // цена
@@ -285,7 +285,7 @@ module VCL
 #        buysell       : longint; // покупка(1)/продажа(2)
 #        order_book      : tOrderBook;
 #      end;
-  class OrderBookItem
+  class OrderItem
     attr_accessor :id, :rev, :price, :volume, :buysell, :order_book
 
     def inspect
@@ -410,7 +410,7 @@ module VCL
 
     # process_record
     def addrecord isin_id, id, rev, price, volume, buysell
-      item = self[id] || OrderBookItem.new
+      item = self[id] || OrderItem.new
 
       price_changed = item.price != price # признак, что цена изменилась
 
