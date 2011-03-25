@@ -199,11 +199,11 @@ module VCL
 #        procedure   clearbyrev(const rev: int64);
 #      end;
   class OrderList < SortedList
-    attr_accessor :order_books
+    attr_accessor :books
 
     def initialize
       super
-      @order_books = OrderBookList.new
+      @books = OrderBookList.new
     end
 
     def freeitem item #(item: pointer)
@@ -219,7 +219,7 @@ module VCL
     end
 
     def searchadditem isin_id #(isin_id: longint): OrderBook
-      @order_books.searchadditem(isin_id)
+      @books.searchadditem(isin_id)
     end
 
     def addrecord isin_id, id, rev, price, volume, buysell #(isin_id: longint; const id, rev: int64; const price, volume: double; buysell: longint): boolean
@@ -380,7 +380,7 @@ module VCL
   # Represents Hash of all aggregated orders by (repl) id
   #    общая таблица котировок
   class OrderHash < SortedHash
-    attr_accessor :order_books
+    attr_accessor :books
 
     def index item
       item.id
@@ -388,7 +388,7 @@ module VCL
 
     def initialize
       super
-      @order_books = DOMHash.new
+      @books = DOMHash.new
     end
 
     # We need to clear item from its order book before scrapping it
@@ -426,7 +426,7 @@ module VCL
         else # new item
           add item
         end
-        rebook item, @order_books[isin_id]
+        rebook item, @books[isin_id]
       end
     end
 

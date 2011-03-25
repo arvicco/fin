@@ -1,3 +1,5 @@
+require 'orders/indexed_list'
+
 module Orders
   # Represents single price level for OrderBook for one security
   # (aggregate bid or ask with aggregate volume)

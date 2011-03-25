@@ -1,37 +1,17 @@
 require 'orders/order_book'
+require 'orders/booked_list'
 
 module Orders
   # Represents list of ALL Orders, indexed by id (replId)
-  class OrderList < IndexedList
-    attr_accessor :order_books
+  class OrderList < BookedList
+    attr_accessor :books
 
     def initialize
-      @order_books = Hash.new do |hash, key|
-        hash[key] = Orders::OrderBook.new(key)
-        hash[key]
-      end
-      super
+      super Orders::OrderBook
     end
 
     def index item
       item.id
-    end
-
-    def add? item
-      old_item = self[index item]
-      remove old_item if old_item # Remove old item with the same index(id)
-      if super
-        @order_books[item.isin].add item # Add item to appropriate order book
-        item
-      end
-    end
-
-    def remove? item
-      if super
-        # Removing item from appropriate order book when it's deleted from order list
-        @order_books[item.isin].remove item
-        item
-      end
     end
   end
 end

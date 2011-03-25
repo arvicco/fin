@@ -1,3 +1,5 @@
+require 'orders/indexed_list'
+
 module Orders
   # Represents single deal for one security
   class DealItem

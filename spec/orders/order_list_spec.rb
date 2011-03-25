@@ -2,33 +2,33 @@ require 'spec_helper'
 require 'spec_helper'
 require 'orders/shared_examples.rb'
 
-shared_examples_for 'adding_item_to_order_books' do
-  it_behaves_like 'creating_order_books'
+shared_examples_for 'adding_item_to_books' do
+  it_behaves_like 'creating_books'
 
   it 'adds this item to appropriate order book' do
     subject.add new_item
-    order_book = subject.order_books[new_item.isin_id]
+    order_book = subject.books[new_item.isin_id]
     order_book.should have_key new_item.price
     order_book[new_item.price].should == new_item
   end
 end
 
-shared_examples_for 'not_adding_item_to_order_books' do
-  it_behaves_like 'creating_order_books'
+shared_examples_for 'not_adding_item_to_books' do
+  it_behaves_like 'creating_books'
 
   it 'does not add this item to order list' do
     subject.add new_item
-    order_book = subject.order_books[new_item.isin_id]
+    order_book = subject.books[new_item.isin_id]
     order_book.should_not have_key new_item.price
     order_book[new_item.price].should == nil
   end
 end
 
-shared_examples_for 'creating_order_books' do
+shared_examples_for 'creating_books' do
   it 'creates appropriate order book' do
     subject.add(new_item)
-    subject.order_books.should have(expected_number_of_books).books
-    order_book = subject.order_books[new_item.isin_id]
+    subject.books.should have(expected_number_of_books).books
+    order_book = subject.books[new_item.isin_id]
     order_book.should be_an Orders::OrderBook
     order_book.isin_id.should == new_item.isin_id
   end
@@ -38,7 +38,7 @@ shared_examples_for 'creating_order_books' do
     if new_item.price == 0
       new_item.book.should == nil
     else
-      order_book = subject.order_books[new_item.isin_id]
+      order_book = subject.books[new_item.isin_id]
       new_item.book.should == order_book
     end
   end
@@ -61,10 +61,10 @@ describe Orders::OrderList do
 
   it_behaves_like 'index_list'
 
-  specify { subject.order_books.should be_empty }
+  specify { subject.books.should be_empty }
 
   it 'returns order_book for any isin_id, even if it was not initialized' do
-    order_book = subject.order_books[1313]
+    order_book = subject.books[1313]
     order_book.should_not be_nil
     order_book.should be_an Orders::OrderBook
     order_book.should be_empty
@@ -76,12 +76,12 @@ describe Orders::OrderList do
     context 'to empty OrderList' do
       let(:new_item) { @item }
 
-      it_behaves_like 'adding_item_to_order_books'
+      it_behaves_like 'adding_item_to_books'
 
       context 'with zero price' do
         let(:new_item) { @zero_price_item }
 
-        it_behaves_like 'not_adding_item_to_order_books'
+        it_behaves_like 'not_adding_item_to_books'
       end
     end
 
@@ -93,26 +93,26 @@ describe Orders::OrderList do
       context 'with existing isin' do
         let(:new_item) { @same_isin_item }
 
-        it_behaves_like 'adding_item_to_order_books'
+        it_behaves_like 'adding_item_to_books'
       end
 
       context 'with different isin' do
         let(:new_item) { @diff_isin_item }
         let(:expected_number_of_books) { 2 }
 
-        it_behaves_like 'adding_item_to_order_books'
+        it_behaves_like 'adding_item_to_books'
       end
 
       context 'with zero price' do
         let(:new_item) { @zero_price_item }
 
-        it_behaves_like 'not_adding_item_to_order_books'
+        it_behaves_like 'not_adding_item_to_books'
       end
 
       context 'with repeat isin/id and non-zero price' do
         let(:new_item) { @repeat_item }
 
-        it_behaves_like 'adding_item_to_order_books'
+        it_behaves_like 'adding_item_to_books'
 
         it 'changes price of item in list' do
           subject.add new_item
@@ -122,7 +122,7 @@ describe Orders::OrderList do
 
         it 'removes old item from appropriate order book' do
           subject.add new_item
-          order_book = subject.order_books[@item.isin_id]
+          order_book = subject.books[@item.isin_id]
           order_book.should_not have_key @item.price
         end
       end
@@ -130,11 +130,11 @@ describe Orders::OrderList do
       context 'with repeat isin/id and zero price' do
         let(:new_item) { @repeat_zero_price_item }
 
-        it_behaves_like 'not_adding_item_to_order_books'
+        it_behaves_like 'not_adding_item_to_books'
 
         it 'removes old item from appropriate order book' do
           subject.add new_item
-          order_book = subject.order_books[@item.isin_id]
+          order_book = subject.books[@item.isin_id]
           order_book.should_not have_key @item.price
           order_book.size.should == 0
         end
@@ -164,7 +164,7 @@ describe Orders::OrderList do
 
       it 'removes item from its related order book' do
         subject.remove(unwanted_item)
-        subject.order_books[unwanted_item.isin_id].should_not have_key unwanted_item.price
+        subject.books[unwanted_item.isin_id].should_not have_key unwanted_item.price
       end
     end
 

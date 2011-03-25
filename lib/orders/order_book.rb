@@ -1,3 +1,4 @@
+require 'orders/order_item'
 require 'orders/book'
 
 module Orders
