@@ -1,7 +1,7 @@
 require 'orders/models/model'
 
 module Orders
-  # Represents single deal for one security
+  # Represents a single deal (trade) for one security
   class Deal < Model
     # Properties as per P2ClientGate API
     prop_accessor :id, :rev,

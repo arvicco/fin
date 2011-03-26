@@ -17,7 +17,7 @@ module Orders
 
     def add? item
       if super
-        @changed = true # Marking DOM as changed
+        @changed = true # Marking Book as changed
         item.book = self
         item
       end
@@ -25,7 +25,7 @@ module Orders
 
     def remove? item
       if super
-        @changed = true # Marking DOM as changed
+        @changed = true # Marking Book as changed
         item.book = nil
         item
       end
