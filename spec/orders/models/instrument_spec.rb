@@ -12,7 +12,8 @@ describe Orders::Instrument do
     its (:sess_id) {should == nil}
     its (:session) {should == nil}
 
-    its (:book) {should == nil}
+    its (:order_count) {should == 0}
+    its (:deal_count) {should == 0}
 
   end
 
@@ -26,7 +27,8 @@ describe Orders::Instrument do
                                      :name => 'name',
                                      :sess_id => 1213,
 
-                                     :book => 123456
+                                     :order_count => 123,
+                                     :deal_count => 456
     }
 
     its (:isin_id) {should == 1234567}
@@ -38,7 +40,8 @@ describe Orders::Instrument do
     its (:sess_id) {should == 1213}
     its (:sess) {should == 1213}
 
-    its (:book) {should == 123456}
+    its (:order_count) {should == 123}
+    its (:deal_count) {should == 456}
 
     describe '#to_s, #inspect' do
       it 'is just right' do

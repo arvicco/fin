@@ -1,23 +1,20 @@
-require 'orders/indexed_list'
+require 'orders/changed_list'
 
 module Orders
   # Represents Book (OrderBook, DealBook, etc...) for one security(isin)
   # It is used as additional index by BookedList subclass (OrderList, DealList)
-  class Book < IndexedList
+  class Book < ChangedList
 
-    attr_accessor :changed
-    attr_reader :isin
-    alias isin_id isin
+    attr_reader :isin_id
+    alias isin isin_id
 
-    def initialize isin
-      @isin = isin
-      @changed = true
+    def initialize isin_id
+      @isin_id = isin_id
       super()
     end
 
     def add? item
       if super
-        @changed = true # Marking Book as changed
         item.book = self
         item
       end
@@ -25,7 +22,6 @@ module Orders
 
     def remove? item
       if super
-        @changed = true # Marking Book as changed
         item.book = nil
         item
       end

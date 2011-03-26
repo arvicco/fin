@@ -12,7 +12,7 @@ module Orders
 
     # Validation of the item being included
     def check item
-      item.is_a?(Orders::Deal) && item.isin == isin
+      item.is_a?(Orders::Deal) && item.isin_id == isin_id
     end
 
   end

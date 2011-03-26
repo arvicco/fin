@@ -5,7 +5,6 @@ module Orders
   # Represents list of ALL Orders, indexed by id (replId)
   # Its @books is a set of OrderBooks by isin. Each OrderBook lists Orders by price.
   class OrderList < BookedList
-    attr_accessor :books
 
     def initialize
       super Orders::OrderBook
