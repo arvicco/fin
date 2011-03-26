@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Orders::DealItem do
+describe Orders::Deal do
   describe '#new with empty initializer' do
-    subject { Orders::DealItem.new }
+    subject { Orders::Deal.new }
 
     its (:id) {should == nil} # replId
     its (:rev) {should == nil} # replRev
@@ -70,7 +70,7 @@ describe Orders::DealItem do
 
 
   describe '#new with opts' do
-    subject { Orders::DealItem.new :isin => 1234567,
+    subject { Orders::Deal.new :isin => 1234567,
                                    :id => 12,
                                    :rev => 123,
                                    :price => 1234,

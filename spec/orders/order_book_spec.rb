@@ -6,11 +6,11 @@ describe Orders::OrderBook do
   let(:item_index) { @item.price }
 
   before(:each) do
-    @item = Orders::OrderItem.new :id => 0, :price => 20, :isin => 123456
-    @item1 = Orders::OrderItem.new :id => 1, :price => 15, :isin => 123456
-    @item2 = Orders::OrderItem.new :id => 2, :price => 10, :isin => 123456
-    @zero_price_item = Orders::OrderItem.new :id => 3, :price => 0, :isin => 123456
-    @wrong_isin_item = Orders::OrderItem.new :id => 4, :price => 50, :isin => 456123
+    @item = Orders::Order.new :id => 0, :price => 20, :isin => 123456
+    @item1 = Orders::Order.new :id => 1, :price => 15, :isin => 123456
+    @item2 = Orders::Order.new :id => 2, :price => 10, :isin => 123456
+    @zero_price_item = Orders::Order.new :id => 3, :price => 0, :isin => 123456
+    @wrong_isin_item = Orders::Order.new :id => 4, :price => 50, :isin => 456123
   end
 
   it_behaves_like 'index_list'
@@ -30,7 +30,7 @@ describe Orders::OrderBook do
   end
 
   describe '#check' do
-    it 'fails if item is not an OrderItem' do
+    it 'fails if item is not an Order' do
       subject.check(1).should == false
     end
 

@@ -1,14 +1,16 @@
+require 'orders/indexed_list'
+
 module Orders
-  # Represents DOM (OrderBook) for one security
-  # индекс стакана по цене
+  # Represents Book (OrderBook, DealBook, etc...) for one security(isin)
+  # It is used as additional index by BookedList subclass (OrderList, DealList)
   class Book < IndexedList
 
     attr_accessor :changed
-    attr_reader :isin_id
-    alias isin isin_id
+    attr_reader :isin
+    alias isin_id isin
 
-    def initialize isin_id
-      @isin_id = isin_id
+    def initialize isin
+      @isin = isin
       @changed = true
       super()
     end

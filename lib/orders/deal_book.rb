@@ -1,4 +1,4 @@
-require 'orders/deal_item'
+require 'orders/models/deal'
 require 'orders/book'
 
 module Orders
@@ -12,7 +12,7 @@ module Orders
 
     # Validation of the item being included
     def check item
-      item.is_a?(Orders::DealItem) && item.isin == isin
+      item.is_a?(Orders::Deal) && item.isin == isin
     end
 
   end

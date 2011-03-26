@@ -1,4 +1,4 @@
-require 'orders/indexed_list'
+require 'orders/models/model'
 
 module Orders
   # Represents single price level for OrderBook for one security
@@ -11,18 +11,15 @@ module Orders
   #        volume        : double;  // кол-во
   #        buysell       : longint; // покупка(1)/продажа(2)
   #        order_book      : tOrderBook;
-  class OrderItem
-    attr_accessor :id, :rev, :isin_id, :price, :volume, :dir, :moment # Properties
-    alias buysell dir
-    alias buysell= dir=
-    alias isin isin_id
-    alias isin= isin_id=
+  class Order < Model
+    # Properties as per P2ClientGate API
+    prop_accessor :id, :rev,
+                  [:isin_id, :isin],
+                  :price, :volume,
+                  [:dir, :buysell],
+                  :moment
 
     attr_accessor :book
-
-    def initialize opts = {}
-      opts.each { |key, value| send "#{key}=", value }
-    end
 
     def price= val
       val = val.to_f
@@ -30,7 +27,7 @@ module Orders
     end
 
     def inspect
-      "#{id}:#{price}>#{volume}#{buysell == 1 ? '+' : '-'}"
+      "#{id}:#{price}>#{volume}#{dir == 1 ? '+' : '-'}"
     end
 
     alias to_s inspect

@@ -1,4 +1,4 @@
-require 'orders/order_book'
+require 'orders/indexed_list'
 
 module Orders
   # Represents list of ALL items coming from DataStream (orders, deals and such).

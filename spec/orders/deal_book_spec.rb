@@ -6,10 +6,10 @@ describe Orders::DealBook do
   let(:item_index) { @item.deal_id }
 
   before(:each) do
-    @item = Orders::DealItem.new :id => 0, :deal_id => 20, :isin => 123456
-    @item1 = Orders::DealItem.new :id => 1, :deal_id => 30, :isin => 123456
-    @item2 = Orders::DealItem.new :id => 2, :deal_id => 40, :isin => 123456
-    @wrong_isin_item = Orders::DealItem.new :id => 3, :deal_id => 50, :isin => 456123
+    @item = Orders::Deal.new :id => 0, :deal_id => 20, :isin => 123456
+    @item1 = Orders::Deal.new :id => 1, :deal_id => 30, :isin => 123456
+    @item2 = Orders::Deal.new :id => 2, :deal_id => 40, :isin => 123456
+    @wrong_isin_item = Orders::Deal.new :id => 3, :deal_id => 50, :isin => 456123
   end
 
   it_behaves_like 'index_list'
@@ -29,7 +29,7 @@ describe Orders::DealBook do
   end
 
   describe '#check' do
-    it 'fails if item is not a DealItem' do
+    it 'fails if item is not a Deal' do
       subject.check(1).should == false
     end
 
