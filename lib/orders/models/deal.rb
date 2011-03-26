@@ -2,12 +2,14 @@ require 'orders/models/model'
 
 module Orders
   # Represents a single deal (trade) for one security
+  # Source table: FORTS_FUTTRADE_REPL::deal Ц cделки
+  #
   class Deal < Model
     # Properties as per P2ClientGate API
     prop_accessor :id, :rev,
                   [:isin_id, :isin],
                   :price,
-                  [:amount, :volume],
+                  :amount,
                   [:deal_id, :deal, :id_deal],
                   [:sess_id, :sess, :session, :session_id],
                   :moment,
@@ -28,7 +30,7 @@ module Orders
     end
 
     def inspect
-      "#{moment}:#{id}[#{isin}] #{price}>#{volume}"
+      "#{moment}:#{id}[#{isin}] #{price}>#{amount}"
     end
 
     alias to_s inspect

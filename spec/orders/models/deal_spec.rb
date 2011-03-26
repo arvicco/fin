@@ -13,7 +13,6 @@ describe Orders::Deal do
     its (:sess_id) {should == nil}
     its (:sess) {should == nil}
     its (:price) {should == nil}
-    its (:volume) {should == nil}
     its (:amount) {should == nil}
     its (:moment) {should == nil}
     its (:status_sell) {should == nil}
@@ -74,7 +73,7 @@ describe Orders::Deal do
                                    :id => 12,
                                    :rev => 123,
                                    :price => 1234,
-                                   :volume => 12345,
+                                   :amount => 12345,
                                    :deal_id => 1212,
                                    :sess_id => 1213,
                                    :moment => 'time',
@@ -94,7 +93,6 @@ describe Orders::Deal do
     its (:id) {should == 12}
     its (:rev) {should == 123}
     its (:price) {should == 1234}
-    its (:volume) {should == 12345}
     its (:amount) {should == 12345}
 
     its (:deal_id) {should == 1212}
