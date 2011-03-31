@@ -9,7 +9,13 @@ module Orders
   class BookedList < IndexedList
     attr_accessor :books
 
+    # Updated attribute should be set externally - only when data update
+    # transaction is completed, and list data is known to be consistent
+    # (e.g., when onStreamDataEnd event fires for DataStream)
+    attr_accessor :updated
+
     def initialize book_type
+      @updated = true
       @books = Hash.new do |hash, key|
         hash[key] = book_type.new(key)
         hash[key]
