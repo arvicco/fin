@@ -14,6 +14,10 @@ module Orders
       item.id
     end
 
+    def check item
+      item.is_a?(Orders::Order) && item.id
+    end
+
     def add_record rec
       add? Order.new(:isin_id => rec.GetValAsLong('isin_id'),
                      :id => rec.GetValAsString('replID').to_i,

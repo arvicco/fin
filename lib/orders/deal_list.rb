@@ -14,6 +14,10 @@ module Orders
       item.deal_id
     end
 
+    def check item
+      item.is_a?(Orders::Deal) && item.deal_id
+    end
+
     def add_record rec
       add? Deal.new :isin_id => rec.GetValAsLong('isin_id'),
                     :deal_id => rec.GetValAsLong('id_deal'),

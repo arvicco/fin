@@ -13,7 +13,7 @@ describe Orders::DealList do
     @same_isin_item = @item1
     @item2 = Orders::Deal.new :isin_id => 5678, :deal_id => 2, :price => 10
     @diff_isin_item = @item2
-    @zero_price_item = Orders::Deal.new :isin_id => 1234, :id => 3, :price => 0
+    @zero_price_item = Orders::Deal.new :isin_id => 1234, :deal_id => 3, :price => 0
     @repeat_item = Orders::Deal.new :isin_id => 1234, :deal_id => 0, :price => 13
   end
 

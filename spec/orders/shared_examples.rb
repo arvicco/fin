@@ -28,6 +28,12 @@ shared_examples_for 'removing items' do
       subject.values.should include @item, @item1
       subject.size.should == 2
     end
+
+    it 'does not raise if given nonsense instead of proper item to delete' do
+      [nil, 0, 123, 'nonsense', [1, 2, 3], {:this => 'sucks'}].each do |non_item|
+        remove_operation(non_item)
+      end
+    end
   end
 end
 
@@ -207,7 +213,7 @@ end
 shared_examples_for 'adding_item_to_books' do
   it_behaves_like 'creating_books'
 
-  it 'adds this item to appropriate order book' do
+  it 'adds this item to appropriate book' do
     subject.add new_item
     book = subject.books[new_item.isin_id]
     book.should have_key new_item_book_index
@@ -218,7 +224,7 @@ end
 shared_examples_for 'not_adding_item_to_books' do
   it_behaves_like 'creating_books'
 
-  it 'does not add this item to order list' do
+  it 'does not add this item to list' do
     subject.add new_item
     book = subject.books[new_item.isin_id]
     book.should_not have_key new_item_book_index

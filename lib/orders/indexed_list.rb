@@ -21,6 +21,7 @@ module Orders
     # Adds new item to the list if it passes check
     # (replaces item with the same index)
     def add? item
+      # Checks that the item given looks like proper item first
       self[index item] = item if check item
     end
 
@@ -34,7 +35,8 @@ module Orders
 
     # Removes item from the list, returns nil if nothing removed
     def remove? item
-      delete index item
+      # Checks that the item given looks like proper item first
+      delete(index(item)) if check item
     end
 
     # Removes item from the list
