@@ -12,6 +12,6 @@ describe Orders::InstrumentList do
     @item2 = Orders::Instrument.new :isin_id => 5678, :name => 'name2'
   end
 
-  it_behaves_like 'index_list'
+  it_behaves_like 'changed_list'
 end
 

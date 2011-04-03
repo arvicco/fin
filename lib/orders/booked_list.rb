@@ -6,13 +6,8 @@ module Orders
   # there is additional index related to a single security(isin) - @books.
   # @books is a set of Books (such as OrderBook, DealBook), each related to a single isin.
   #
-  class BookedList < IndexedList
+  class BookedList < ChangedList
     attr_accessor :books
-
-    # Updated attribute should be set externally - only when data update
-    # transaction is completed, and list data is known to be consistent
-    # (e.g., when onStreamDataEnd event fires for DataStream)
-    attr_accessor :updated
 
     def initialize book_type
       @updated = true
@@ -23,12 +18,15 @@ module Orders
       super()
     end
 
+    # Overwrites/removes existing item with the same index
     def add? item
-      old_item = self[index item]
-      remove old_item if old_item # Remove old item with the same index(id)
-      if super
-        @books[item.isin].add item # Add item to appropriate order book
-        item
+      if check item
+        old_item = self[index item]
+        remove old_item if old_item # Remove old item with the same index(id)
+        if super
+          @books[item.isin].add item # Add item to appropriate order book
+          item
+        end
       end
     end
 

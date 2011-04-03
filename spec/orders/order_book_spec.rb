@@ -13,7 +13,7 @@ describe Orders::OrderBook do
     @wrong_isin_item = Orders::Order.new :id => 4, :price => 50, :isin => 456123
   end
 
-  it_behaves_like 'index_list'
+  it_behaves_like 'changed_list'
 
   its (:isin_id) {should == 123456}
   its (:isin) {should == 123456}

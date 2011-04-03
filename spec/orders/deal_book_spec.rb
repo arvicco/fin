@@ -12,7 +12,7 @@ describe Orders::DealBook do
     @wrong_isin_item = Orders::Deal.new :id => 3, :deal_id => 50, :isin => 456123
   end
 
-  it_behaves_like 'index_list'
+  it_behaves_like 'changed_list'
 
   its (:isin_id) {should == 123456}
   its (:isin) {should == 123456}

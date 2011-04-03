@@ -18,7 +18,7 @@ describe Orders::OrderList do
     @repeat_zero_price_item = Orders::Order.new :isin_id => 1234, :id => 0, :price => 0
   end
 
-  it_behaves_like 'index_list'
+  it_behaves_like 'changed_list'
 
   specify { subject.books.should be_empty }
 

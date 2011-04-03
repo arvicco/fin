@@ -17,7 +17,7 @@ describe Orders::DealList do
     @repeat_item = Orders::Deal.new :isin_id => 1234, :deal_id => 0, :price => 13
   end
 
-  it_behaves_like 'index_list'
+  it_behaves_like 'changed_list'
 
   specify { subject.books.should be_empty }
 

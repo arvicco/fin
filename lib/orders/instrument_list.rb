@@ -6,11 +6,6 @@ module Orders
   # NB: It is derived directly from ChangedList, NOT BookedList (no Books!)
   class InstrumentList < ChangedList
 
-    # Updated attribute should be set externally - only when data update
-    # transaction is completed, and list data is known to be consistent
-    # (e.g., when onStreamDataEnd event fires for DataStream)
-    attr_accessor :updated
-
     def index item
       item.isin_id
     end

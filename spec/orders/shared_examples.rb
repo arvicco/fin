@@ -81,6 +81,98 @@ shared_examples_for 'adding items' do
   end
 end
 
+
+shared_examples_for 'changed_list' do
+  it_behaves_like 'index_list'
+
+  it 'has changed and updated attributes, true at creation' do
+    subject.changed.should == true
+    subject.updated.should == true
+  end
+
+  it 'has change_count attribute, 0 at creation' do
+    subject.change_count.should == 0
+  end
+
+  it 'allows setting of updated attribute externally' do
+    subject.updated = false
+    subject.updated.should == false
+    subject.updated = true
+    subject.updated.should == true
+  end
+
+  context 'when item is being added to list' do
+    before(:each) { subject.changed = false; subject.updated = false }
+
+    context 'successfully' do
+      it 'auto-sets changed attribute, but not updated attribute' do
+        subject.add @item
+        subject.changed.should == true
+        subject.updated.should == false
+      end
+
+      it 'increases changed_count' do
+        subject.add @item
+        subject.change_count.should == 1
+      end
+    end
+
+    unless described_class == Orders::ChangedList # it can add ANYTHING...
+      context 'unsuccessfully' do
+        [nil, 0, 1313, [1, 2, 3], Orders::Model.new].each do |non_item|
+          it ' doesn`t sets changed or updated attributes' do
+            subject.add non_item
+            subject.changed.should == false
+            subject.updated.should == false
+          end
+
+          it 'increases changed_count' do
+            subject.add non_item
+            subject.change_count.should == 0
+          end
+        end
+      end
+    end
+  end
+
+  context 'when item is being removed from list' do
+    before(:each) do
+      subject.add(@item)
+      subject.changed = false
+      subject.updated = false
+    end
+
+    context 'successfully' do
+      it 'auto-sets changed attribute, but not updated attribute' do
+        subject.remove @item
+        subject.changed.should == true
+        subject.updated.should == false
+      end
+
+      it 'increases changed_count' do
+        subject.remove @item
+        subject.change_count.should == 2 # added, then removed
+      end
+    end
+
+    context 'unsuccessfully' do
+      [nil, 0, 1313, [1, 2, 3], Orders::Model.new, @item1].each do |non_item|
+        it ' doesn`t sets changed or updated attributes' do
+          subject.remove non_item
+          subject.changed.should == false
+          subject.updated.should == false
+        end
+
+        it 'increases changed_count' do
+          subject.remove non_item
+          subject.change_count.should == 1 # initial addition, but not removal
+        end
+      end
+    end
+  end
+end
+
+
 shared_examples_for 'index_list' do
 
   describe 'items get/set' do
