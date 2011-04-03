@@ -45,6 +45,19 @@ describe Orders::ContainerList do
       subject.add_record "Blah"
     end
   end
+end
 
+describe Orders::ContainerList, 'as a replacement for InstrumentList' do
+  subject { Orders::ContainerList.new :item_type => Orders::Instrument }
+  let(:item_index) { @item.isin_id }
+  let (:new_item_book_index) {new_item.isin_id}
+
+  before(:each) do
+    @item = Orders::Instrument.new :isin_id => 1234, :name => 'name'
+    @item1 = Orders::Instrument.new :isin_id => 2345, :name => 'name1'
+    @item2 = Orders::Instrument.new :isin_id => 5678, :name => 'name2'
+  end
+
+  it_behaves_like 'changed_list'
 end
 

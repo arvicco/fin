@@ -18,8 +18,11 @@ module Orders
 
     # Validation of the item being included
     def check item
-      item.is_a?(@item_type) && item.isin_id == isin_id &&
-          @check_condition ? @check_condition.call(item) : true
+      if item.is_a?(@item_type) && item.isin_id == isin_id
+        @check_condition ? @check_condition.call(item) : true
+      else
+        false
+      end
     end
 
     def index item

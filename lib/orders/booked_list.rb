@@ -1,4 +1,5 @@
-require 'orders/indexed_list'
+require 'orders/book'
+require 'orders/container_list'
 
 module Orders
   # Represents list of ALL items coming from DataStream (orders, deals and such).
@@ -6,7 +7,7 @@ module Orders
   # there is additional index related to a single security(isin) - @books.
   # @books is a set of Books (such as OrderBook, DealBook), each related to a single isin.
   #
-  class BookedList < ChangedList
+  class BookedList < ContainerList
     attr_accessor :books
 
     def initialize opts = {}
@@ -17,7 +18,7 @@ module Orders
                              :check_condition => opts[:check_condition]
         hash[key]
       end
-      super()
+      super
     end
 
     # Overwrites/removes existing item with the same index
