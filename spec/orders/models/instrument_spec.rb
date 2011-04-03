@@ -11,10 +11,6 @@ describe Orders::Instrument do
     its (:short_isin) {should == nil}
     its (:sess_id) {should == nil}
     its (:session) {should == nil}
-
-    its (:order_count) {should == 0}
-    its (:deal_count) {should == 0}
-
   end
 
 
@@ -26,9 +22,6 @@ describe Orders::Instrument do
                                      :short_isin => 'short isin',
                                      :name => 'name',
                                      :sess_id => 1213,
-
-                                     :order_count => 123,
-                                     :deal_count => 456
     }
 
     its (:isin_id) {should == 1234567}
@@ -39,9 +32,6 @@ describe Orders::Instrument do
     its (:rev) {should == 123}
     its (:sess_id) {should == 1213}
     its (:sess) {should == 1213}
-
-    its (:order_count) {should == 123}
-    its (:deal_count) {should == 456}
 
     describe '#to_s, #inspect' do
       it 'is just right' do

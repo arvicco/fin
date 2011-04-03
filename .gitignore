@@ -15,9 +15,11 @@ tmtags
 
 ## PROJECT::GENERAL
 coverage
+config
 rdoc
 pkg
 log
+tmp
 .idea
 .bundle
 

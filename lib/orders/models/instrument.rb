@@ -78,13 +78,8 @@ module Orders
 #    step_price_interclr	d16.5	—тоимость шага цены пром. клиринга
 #    step_price_curr	    d16.5	—тоимость минимального шага цены, выраженна€ в валюте
 
-    # Counters for aggregate orders and deals for this security
-    attr_accessor :order_count, :deal_count
-
     def initialize opts = {}
       super
-      @order_count ||= 0
-      @deal_count ||= 0
     end
 
     def price= val
