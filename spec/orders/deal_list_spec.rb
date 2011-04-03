@@ -5,7 +5,6 @@ describe Orders::DealList do
   subject { Orders::DealList.new }
   let(:item_index) { @item.deal_id }
   let (:new_item_book_index) {new_item.deal_id}
-  let(:book_type) {Orders::Book}
 
   before(:each) do
     @item = Orders::Deal.new :isin_id => 1234, :deal_id => 0, :price => 20
@@ -24,7 +23,7 @@ describe Orders::DealList do
   it 'returns book for any isin_id, even if it was not initialized' do
     book = subject.books[1313]
     book.should_not be_nil
-    book.should be_an book_type
+    book.should be_an Orders::Book
     book.should be_empty
   end
 

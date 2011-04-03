@@ -3,8 +3,8 @@ require 'orders/shared_examples.rb'
 
 describe Orders::Book, 'as a replacement for OrderBook' do
   subject { Orders::Book.new :item_type => Orders::Order,
-            :index => proc { |item| item.price },
-            :check_condition => proc { |item| item.price > 0},
+            :book_index => proc { |item| item.price },
+            :book_condition => proc { |item| item.price > 0},
             :isin_id => 123456 }
 
   let(:item_index) { @item.price }
@@ -123,7 +123,7 @@ end
 
 describe Orders::Book, 'as a replacement for DealBook' do
   subject { Orders::Book.new :item_type => Orders::Deal,
-            :index => proc { |item| item.deal_id },
+            :book_index => proc { |item| item.deal_id },
             :isin_id => 123456 }
   let(:item_index) { @item.deal_id }
 

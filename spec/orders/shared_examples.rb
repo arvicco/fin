@@ -177,7 +177,9 @@ shared_examples_for 'index_list' do
 
   describe 'items get/set' do
     it 'returns item from list by their index' do
-      subject.add(@item)[item_index].should == @item
+      p subject.add(@item)
+      p item_index
+      subject[item_index].should == @item
     end
 
     it 'returns nil when item with requested index not in collection' do
@@ -329,7 +331,7 @@ shared_examples_for 'creating_books' do
     subject.add(new_item)
     subject.books.should have(expected_number_of_books).books
     book = subject.books[new_item.isin_id]
-    book.should be_an book_type
+    book.should be_an Orders::Book
     book.isin_id.should == new_item.isin_id
   end
 

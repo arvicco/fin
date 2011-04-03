@@ -10,8 +10,8 @@ module Orders
 
     def initialize opts = {}
       @isin_id = opts[:isin_id]
-      @index = opts[:index]
-      @check_condition = opts[:check_condition]
+      @book_index = opts[:book_index]
+      @book_condition = opts[:book_condition]
       raise "No isin_id given for #{self}" unless @isin_id
       super
     end
@@ -19,14 +19,18 @@ module Orders
     # Validation of the item being included
     def check item
       if item.is_a?(@item_type) && item.isin_id == isin_id
-        @check_condition ? @check_condition.call(item) : true
+        @book_condition ? @book_condition.call(item) : true
       else
         false
       end
     end
 
     def index item
-      @index.call(item)
+      if @book_index
+        @book_index.call(item)
+      else
+        super
+      end
     end
 
     def add? item
