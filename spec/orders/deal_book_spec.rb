@@ -2,7 +2,9 @@ require 'spec_helper'
 require 'orders/shared_examples.rb'
 
 describe Orders::DealBook do
-  subject { Orders::DealBook.new 123456 }
+  subject { Orders::DealBook.new :item_type => Orders::Order,
+            :index => proc { |item| item.deal_id },
+            :isin_id => 123456 }
   let(:item_index) { @item.deal_id }
 
   before(:each) do

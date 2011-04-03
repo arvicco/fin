@@ -1,4 +1,4 @@
-require 'orders/indexed_list'
+require 'orders/changed_list'
 
 module Orders
   # Represents Container that holds Model objects (items) of only ONE specific type

@@ -7,7 +7,8 @@ module Orders
   class DealList < BookedList
 
     def initialize
-      super Orders::DealBook
+      super :item_type => Orders::Order,
+            :index => proc { |item| item.deal_id }
     end
 
     def index item

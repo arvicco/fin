@@ -9,9 +9,12 @@ module Orders
   class BookedList < ChangedList
     attr_accessor :books
 
-    def initialize book_type
+    def initialize opts = {}
       @books = Hash.new do |hash, key|
-        hash[key] = book_type.new(key)
+        hash[key] = Book.new :isin_id => key,
+                             :item_type => opts[:item_type],
+                             :index => opts[:index],
+                             :check_condition => opts[:check_condition]
         hash[key]
       end
       super()

@@ -5,7 +5,7 @@ describe Orders::OrderList do
   subject { Orders::OrderList.new }
   let(:item_index) { @item.id }
   let (:new_item_book_index) {new_item.price}
-  let(:book_type) {Orders::OrderBook}
+  let(:book_type) {Orders::Book}
 
   before(:each) do
     @item = Orders::Order.new :isin_id => 1234, :id => 0, :price => 20

@@ -7,7 +7,9 @@ module Orders
   class OrderList < BookedList
 
     def initialize
-      super Orders::OrderBook
+      super :item_type => Orders::Order,
+            :index => proc { |item| item.price },
+            :check_condition => proc { |item| item.price > 0 }
     end
 
     def index item

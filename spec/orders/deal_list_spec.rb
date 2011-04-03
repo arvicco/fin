@@ -5,7 +5,7 @@ describe Orders::DealList do
   subject { Orders::DealList.new }
   let(:item_index) { @item.deal_id }
   let (:new_item_book_index) {new_item.deal_id}
-  let(:book_type) {Orders::DealBook}
+  let(:book_type) {Orders::Book}
 
   before(:each) do
     @item = Orders::Deal.new :isin_id => 1234, :deal_id => 0, :price => 20
