@@ -19,16 +19,12 @@ module Orders
     end
 
     def add_record rec
-      add? Order.new(:isin_id => rec.GetValAsLong('isin_id'),
-                     :id => rec.GetValAsString('replID').to_i,
-                     :rev => rec.GetValAsString('replRev').to_i,
-                     :price => rec.GetValAsString('price').to_f,
-                     :volume => rec.GetValAsString('volume').to_f,
-                     :dir => rec.GetValAsLong('dir'))
+      add? Order.from_record(rec)
     end
 
     def remove_record rec, id
-      remove? self[id]
+      index = Order.index_for rec
+      remove? self[index]
     end
 
   end

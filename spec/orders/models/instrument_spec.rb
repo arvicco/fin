@@ -1,6 +1,10 @@
 require 'spec_helper'
+require 'orders/models/shared_examples'
 
 describe Orders::Instrument do
+
+  it_behaves_like 'model'
+
   describe '#new with empty initializer' do
     subject { Orders::Instrument.new }
 
@@ -37,6 +41,12 @@ describe Orders::Instrument do
       it 'is just right' do
         subject.to_s.should == "name:short isin[symbolic isin]"
         subject.inspect.should == "name:short isin[symbolic isin]"
+      end
+    end
+
+    describe '#index' do
+      it 'should be equal to isin_id' do
+        subject.index.should == subject.isin_id
       end
     end
   end

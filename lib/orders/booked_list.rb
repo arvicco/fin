@@ -10,7 +10,6 @@ module Orders
     attr_accessor :books
 
     def initialize book_type
-      @updated = true
       @books = Hash.new do |hash, key|
         hash[key] = book_type.new(key)
         hash[key]
@@ -24,7 +23,7 @@ module Orders
         old_item = self[index item]
         remove old_item if old_item # Remove old item with the same index(id)
         if super
-          @books[item.isin].add item # Add item to appropriate order book
+          @books[item.isin_id].add item # Add item to appropriate order book
           item
         end
       end
@@ -33,7 +32,7 @@ module Orders
     def remove? item
       if super
         # Removing item from appropriate order book when it's deleted from order list
-        @books[item.isin].remove item
+        @books[item.isin_id].remove item
         item
       end
     end

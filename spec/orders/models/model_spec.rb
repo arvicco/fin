@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'orders/models/shared_examples'
+
+describe Orders::Model do
+  it_behaves_like 'model'
+end
 
 describe Orders::Model, "as a base class for BD models" do
   let(:model_class) { Class.new(Orders::Model) }

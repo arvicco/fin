@@ -1,10 +1,14 @@
 require 'spec_helper'
+require 'orders/models/shared_examples'
 
 describe Orders::Order do
+
+  it_behaves_like 'model'
+
   describe '#new with empty initializer' do
     subject { Orders::Order.new }
 
-    its (:id) {should == nil}
+    its (:repl_id) {should == nil}
     its (:rev) {should == nil}
     its (:isin_id) {should == nil}
     its (:isin) {should == nil}
@@ -18,16 +22,16 @@ describe Orders::Order do
 
   describe '#new with opts' do
     subject { Orders::Order.new :isin => 1234567,
-                                    :id => 12,
-                                    :rev => 123,
-                                    :price => 1234,
-                                    :volume => 12345,
-                                    :buysell => 1,
-                                    :moment => 'time',
-                                    :book => 123456
+                                :repl_id => 12,
+                                :rev => 123,
+                                :price => 1234,
+                                :volume => 12345,
+                                :buysell => 1,
+                                :moment => 'time',
+                                :book => 123456
     }
 
-    its (:id) {should == 12}
+    its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:isin_id) {should == 1234567}
     its (:isin) {should == 1234567}
@@ -50,6 +54,12 @@ describe Orders::Order do
         subject.price = 1313.0
         subject.price.should == 1313
         subject.price.should be_an Integer
+      end
+    end
+
+    describe '#index' do
+      it 'should be equal to replId' do
+        subject.index.should == subject.repl_id
       end
     end
   end

@@ -1,6 +1,10 @@
 require 'spec_helper'
+require 'orders/models/shared_examples'
 
 describe Orders::Deal do
+
+  it_behaves_like 'model'
+
   describe '#new with empty initializer' do
     subject { Orders::Deal.new }
 
@@ -123,6 +127,12 @@ describe Orders::Deal do
         subject.price = 1313.0
         subject.price.should == 1313
         subject.price.should be_an Integer
+      end
+    end
+
+    describe '#index' do
+      it 'should be equal to isin_id' do
+        subject.index.should == subject.deal_id
       end
     end
   end

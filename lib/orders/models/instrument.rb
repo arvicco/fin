@@ -5,8 +5,19 @@ module Orders
   # Source table: FORTS_FUTINFO_REPL::fut_sess_contents
   #
   class Instrument < Model
+
+    def self.from_record rec
+      new :isin_id => rec.GetValAsLong('isin_id'),
+          :short_isin => rec.GetValAsString('short_isin'),
+          :name => rec.GetValAsString('name')
+    end
+
+    def self.index_for rec
+      rec.GetValAsLong('isin_id')
+    end
+
     # Properties as per P2ClientGate API
-    prop_accessor :id, :rev,
+    prop_accessor [:repl_id, :id], [:repl_rev, :rev],
                   [:sess_id, :sess, :session, :session_id],
                   :isin_id,
                   :isin,
@@ -80,6 +91,10 @@ module Orders
 
     def initialize opts = {}
       super
+    end
+
+    def index
+      @isin_id
     end
 
     def price= val

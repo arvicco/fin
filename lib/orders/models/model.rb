@@ -32,5 +32,8 @@ module Orders
       opts.each { |key, value| send "#{key}=", value }
     end
 
+    def index
+      object_id
+    end
   end
 end

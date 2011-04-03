@@ -119,14 +119,14 @@ shared_examples_for 'changed_list' do
 
     unless described_class == Orders::ChangedList # it can add ANYTHING...
       context 'unsuccessfully' do
-        [nil, 0, 1313, [1, 2, 3], Orders::Model.new].each do |non_item|
-          it ' doesn`t sets changed or updated attributes' do
+        [nil, "none", 1313, [1, 2, 3]].each do |non_item|
+          it 'doesn`t set changed or updated attributes' do
             subject.add non_item
             subject.changed.should == false
             subject.updated.should == false
           end
 
-          it 'increases changed_count' do
+          it 'doesn`t increase changed_count' do
             subject.add non_item
             subject.change_count.should == 0
           end
@@ -156,14 +156,14 @@ shared_examples_for 'changed_list' do
     end
 
     context 'unsuccessfully' do
-      [nil, 0, 1313, [1, 2, 3], Orders::Model.new, @item1].each do |non_item|
-        it ' doesn`t sets changed or updated attributes' do
+      [nil, "none", 1313, [1, 2, 3], @item1].each do |non_item|
+        it ' doesn`t set changed or updated attributes' do
           subject.remove non_item
           subject.changed.should == false
           subject.updated.should == false
         end
 
-        it 'increases changed_count' do
+        it 'doesn`t increase changed_count' do
           subject.remove non_item
           subject.change_count.should == 1 # initial addition, but not removal
         end
