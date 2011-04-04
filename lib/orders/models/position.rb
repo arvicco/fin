@@ -6,23 +6,6 @@ module Orders
   #
   class Position < Model
 
-    def self.from_record rec
-      new :isin_id => rec.GetValAsLong('isin_id'),
-          :repl_id => rec.GetValAsString('replID').to_i,
-          :repl_rev => rec.GetValAsString('replRev').to_i,
-          :client_code => rec.GetValAsString('client_code'),
-          :open_qty => rec.GetValAsLong('open_qty'),
-          :buys_qty => rec.GetValAsLong('buys_qty'),
-          :sells_qty => rec.GetValAsLong('sells_qty'),
-          :pos => rec.GetValAsLong('pos'),
-          :last_deal_id => rec.GetValAsLong('last_deal_id'),
-          :net_volume_rur => rec.GetValAsString('net_volume_rur').to_f
-    end
-
-    def self.index_for rec
-      rec.GetValAsLong('isin_id')
-    end
-
     # Properties as per P2ClientGate API
     prop_accessor [:repl_id, :id], [:repl_rev, :rev],
                   [:isin_id, :isin],
@@ -43,6 +26,23 @@ module Orders
     #         Hетто-сумма денег, в рубл€х, на которую были совершены сделки.
     #         ѕоложительное число Ц деньги приход€т, отрицательное Ц деньги выплачиваютс€
     #    last_deal_id	  i8	»дентификатор последней сделки
+
+    def self.from_record rec
+      new :isin_id => rec.GetValAsLong('isin_id'),
+          :repl_id => rec.GetValAsString('replID').to_i,
+          :repl_rev => rec.GetValAsString('replRev').to_i,
+          :client_code => rec.GetValAsString('client_code'),
+          :open_qty => rec.GetValAsLong('open_qty'),
+          :buys_qty => rec.GetValAsLong('buys_qty'),
+          :sells_qty => rec.GetValAsLong('sells_qty'),
+          :pos => rec.GetValAsLong('pos'),
+          :last_deal_id => rec.GetValAsLong('last_deal_id'),
+          :net_volume_rur => rec.GetValAsString('net_volume_rur').to_f
+    end
+
+    def self.index_for rec
+      rec.GetValAsLong('isin_id')
+    end
 
     def index
       @isin_id

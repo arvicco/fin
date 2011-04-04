@@ -13,9 +13,9 @@ describe Orders::Deal do
     its (:isin_id) {should == nil}
     its (:isin) {should == nil}
     its (:deal_id) {should == nil}
-    its (:deal) {should == nil}
+    its (:id_deal) {should == nil}
     its (:sess_id) {should == nil}
-    its (:sess) {should == nil}
+    its (:session_id) {should == nil}
     its (:price) {should == nil}
     its (:amount) {should == nil}
     its (:moment) {should == nil}
@@ -100,9 +100,9 @@ describe Orders::Deal do
     its (:amount) {should == 12345}
 
     its (:deal_id) {should == 1212}
-    its (:deal) {should == 1212}
+    its (:id_deal) {should == 1212}
     its (:sess_id) {should == 1213}
-    its (:sess) {should == 1213}
+    its (:session_id) {should == 1213}
     its (:moment) {should == 'time'}
     its (:status_sell) {should == 0}
     its (:status_buy) {should == 0}

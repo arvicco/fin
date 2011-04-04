@@ -1,17 +1,17 @@
 require 'orders/models/model'
 
 module Orders
-  # Represents single price level for OrderBook for one security
-  # (aggregate bid or ask with aggregate volume)
-  #      // элемент "строка в стакане"
-  #      tOrderBookItem  = record
-  #        id         : int64;
-  #        rev        : int64;
-  #        price         : double;  // цена
-  #        volume        : double;  // кол-во
-  #        buysell       : longint; // покупка(1)/продажа(2)
-  #        order_book      : tOrderBook;
   class Order < Model
+
+    # Properties as per P2ClientGate API
+    prop_accessor [:repl_id, :id], [:repl_rev, :rev],
+                  [:isin_id, :isin],
+                  :price, #           d16.5 Цена котировки
+                  :volume, #          i8	Объём агрегированной котировки
+                  [:dir, :buysell], # i1	Направление котировки: покупка (1) /продажа (2)
+                  :moment #           t	Время последнего обновления котировки
+
+    attr_accessor :book
 
     def self.from_record rec
       new :isin_id => rec.GetValAsLong('isin_id'),
@@ -19,21 +19,13 @@ module Orders
           :repl_rev => rec.GetValAsString('replRev').to_i,
           :price => rec.GetValAsString('price').to_f,
           :volume => rec.GetValAsString('volume').to_f,
+          :moment => rec.GetValAsString('moment'),
           :dir => rec.GetValAsLong('dir')
     end
 
     def self.index_for rec
       rec.GetValAsLong('replID')
     end
-
-    # Properties as per P2ClientGate API
-    prop_accessor [:repl_id, :id], [:repl_rev, :rev],
-                  [:isin_id, :isin],
-                  :price, :volume,
-                  [:dir, :buysell],
-                  :moment
-
-    attr_accessor :book
 
     def index
       @repl_id
