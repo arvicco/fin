@@ -41,7 +41,7 @@ module Orders
           :money_old => rec.GetValAsString('money_old').to_f,
           :money_amount => rec.GetValAsString('money_amount').to_f,
           :money_free => rec.GetValAsString('money_free').to_f,
-          :pledge_blocked => rec.GetValAsString('pledge_blocked').to_f,
+          :money_blocked => rec.GetValAsString('money_blocked').to_f,
           :pledge_old => rec.GetValAsString('pledge_old').to_f,
           :pledge_amount => rec.GetValAsString('pledge_amount').to_f,
           :pledge_free => rec.GetValAsString('pledge_free').to_f,

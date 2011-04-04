@@ -36,7 +36,7 @@ module Orders
           :buys_qty => rec.GetValAsLong('buys_qty'),
           :sells_qty => rec.GetValAsLong('sells_qty'),
           :pos => rec.GetValAsLong('pos'),
-          :last_deal_id => rec.GetValAsLong('last_deal_id'),
+          :last_deal_id => rec.GetValAsString('replID').to_i,
           :net_volume_rur => rec.GetValAsString('net_volume_rur').to_f
     end
 
