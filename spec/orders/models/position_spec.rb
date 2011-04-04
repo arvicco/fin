@@ -19,22 +19,22 @@ describe Orders::Position do
     its (:net_volume_rur) {should == nil}
     its (:last_deal_id) {should == nil}
 
-#    isin_id	i4	Уникальный числовой идентификатор инструмента
+#    isin_id	    i4	Уникальный числовой идентификатор инструмента
 #    client_code	c7	Код клиента
-#    open_qty	i4	Количество позиций на начало сессии
-#    buys_qty	i4	Количество купленных контрактов в ходе сессии
-#    sells_qty	i4	Количество проданных контрактов в ходе сессии
-#    pos	i4	Текущая позиция
-#    net_volume_rur	d26.2	Нетто-сумма денег, в рублях, на которую были совершены сделки. Положительное число – деньги приходят, отрицательное – деньги выплачиваются
-#    last_deal_id	i8	Идентификатор последней сделки
+#    open_qty	    i4	Количество позиций на начало сессии
+#    buys_qty	    i4	Количество купленных контрактов в ходе сессии
+#    sells_qty	  i4	Количество проданных контрактов в ходе сессии
+#    pos	        i4	Текущая позиция
+#    net_volume_rur	d26.2	Нетто-сумма денег, в рублях, на которую были совершены сделки.
+#             Положительное число – деньги приходят, отрицательное – деньги выплачиваются
+#    last_deal_id	  i8	Идентификатор последней сделки
   end
-
 
   describe '#new with opts' do
     subject { Orders::Position.new :isin_id => 1234567,
                                    :repl_id => 12,
                                    :repl_rev => 123,
-                                   :client_code => 1234,
+                                   :client_code => 'fz1234',
                                    :open_qty => 12345,
                                    :buys_qty => 1212,
                                    :sells_qty => 1213,
@@ -48,7 +48,7 @@ describe Orders::Position do
     its (:isin) {should == 1234567}
     its (:id) {should == 12}
     its (:rev) {should == 123}
-    its (:client_code) {should == 1234}
+    its (:client_code) {should == 'fz1234'}
     its (:open_qty) {should == 12345}
 
     its (:buys_qty) {should == 1212}
