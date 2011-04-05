@@ -15,6 +15,7 @@ module Orders
                   :name, #          c75	Наименование инструмента.
                   :inst_term, #     i4	Смещение от спота.
                   :code_vcb, #  	  c25	Код контракта.
+        # Not extracted from record yet...
                   :is_limited, #    i1	Признак наличия лимитов в торгах.
                   :limit_up, #      d16.5	Верхний лимит цены.
                   :limit_down, #    d16.5	Нижний лимит цены.
@@ -47,8 +48,12 @@ module Orders
 
     def self.from_record rec
       new :isin_id => rec.GetValAsLong('isin_id'),
+          :isin => rec.GetValAsString('isin'),
           :short_isin => rec.GetValAsString('short_isin'),
-          :name => rec.GetValAsString('name')
+          :name => rec.GetValAsString('name'),
+          :inst_term => rec.GetValAsLong('inst_term'),
+          :code_vcb => rec.GetValAsString('code_vcb'),
+
     end
 
     def self.index_for rec
