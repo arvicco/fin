@@ -39,5 +39,11 @@ module Orders
         item
       end
     end
+
+    # Observers inform list that it's recent changes are reflected
+    def update_noted
+      @updated = false
+      @changed = false
+    end
   end
 end
