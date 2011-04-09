@@ -24,15 +24,18 @@ module Orders
                   :limit_spot_buy_used, # 	d26.2	Использованный Лимит на Покупку Спотов
                   :coeff_go, # 	      d16.5	Коэффициент клиентского ГО
                   :coeff_liquidity, # d16.5	Коэффициент ликвидности
+                  :premium, # 	                d26.2	Премия
+                  :premium_order_reserve, # 	    f	Резерв премии под заявки
+
+                  # Not extracted from record:
                   :is_auto_update_limit, # 	    i1 Признак автокоррекции лимита на величину
                   #  дохода при закачке после клиринга: 0-нет, 1-менять.
                   :is_auto_update_spot_limit, # i1	Признак автокоррекции лимитов по Спотам
                   # (на Продажу, и на Покупку) при закачке после клиринга: 0-нет, 1-менять.
                   :no_fut_discount, # 	        i1	Запрещение использования скидки по
                   # фьючерсам: 1-Запрет, 0-нет.
-                  :limits_set, # 	              i1	Признак лимитов. 0 – лимиты отсутствуют
-                  :premium, # 	                d26.2	Премия
-                  :premium_order_reserve # 	    f	Резерв премии под заявки
+                  :limits_set # 	              i1	Признак лимитов. 0 – лимиты отсутствуют
+
 
     def self.from_record rec
       new :repl_id => rec.GetValAsString('replID').to_i,
@@ -52,6 +55,10 @@ module Orders
           :fee_reserve => rec.GetValAsString('vm_reserve').to_f,
           :limit_spot_buy => rec.GetValAsString('vm_reserve').to_f,
           :limit_spot_buy_used => rec.GetValAsString('vm_reserve').to_f,
+          :coeff_go => rec.GetValAsString('coeff_go').to_f,
+          :coeff_liquidity => rec.GetValAsString('coeff_liquidity').to_f,
+          :premium => rec.GetValAsString('premium').to_f,
+          :premium_order_reserve => rec.GetValAsString('premium_order_reserve').to_f,
     end
 
     def self.index_for rec
