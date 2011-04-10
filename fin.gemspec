@@ -1,14 +1,11 @@
-# Gemspecs should not be generated, but edited directly.
-# Refer to: http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/
-
 Gem::Specification.new do |gem|
   gem.name        = "fin"
   gem.version     = File.open('VERSION').read.strip # = ::Fin::VERSION # - conflicts with Bundler
-  gem.summary     = "Basic structures for DOM models"
-  gem.description = "Basic structures used to create DOM models"
+  gem.summary     = "Domain models and container structures for market data feeds"
+  gem.description = "Provides basis for developing effective market data feed handlers"
   gem.authors     = ["arvicco"]
   gem.email       = "arvitallian@gmail.com"
-  gem.homepage    = "http://github.com/arvicco/order_book"
+  gem.homepage    = "http://github.com/arvicco/fin"
   gem.platform    = Gem::Platform::RUBY
   gem.date        = Time.now.strftime "%Y-%m-%d"
 
