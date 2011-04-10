@@ -1,6 +1,6 @@
-= orders
+= fin
 by:: Arvicco
-url:: http://github.com/arvicco/orders
+url:: http://github.com/arvicco/fin
 
 == DESCRIPTION:
 
@@ -20,7 +20,7 @@ Data structures need to be:
 
 == INSTALL:
 
-  $ sudo gem install orders
+  $ sudo gem install fin
 
 == LICENSE:
 Copyright (c) 2011 Arvicco. See LICENSE for details.
