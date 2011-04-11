@@ -10,7 +10,7 @@ describe Fin::Model, "as a base class for BD models" do
   let(:model_item) { model_class.new }
 
   describe 'Class inheriting from Model' do
-    it 'defines replID, replRev, replAct properties' do
+    it 'has pre-defined replID, replRev, replAct properties' do
       expect do
         model_item.replID
         model_item.repl_id
@@ -72,5 +72,100 @@ describe Fin::Model, "as a base class for BD models" do
         model_item.baz.should == 42
       end
     end # describe '.prop_accessor'
+
+    describe '.from_record' do
+      let(:rec) do # Mocks raw OLE record received through P2ClientGate callback
+        mock('record').tap do |mock|
+          mock.stub(:GetValAsString) do |field|
+            case field
+              when 'replID'
+                '11'
+              when 'replRev'
+                '12'
+              when 'replAct'
+                '13'
+              when 'longint'
+                '1322222222455664'
+              when 'name'
+                'rec_name'
+              when 'time'
+                'rec_time'
+              when 'price'
+                '16.7'
+              when 'net'
+                '89.89'
+            end
+          end
+          mock.stub(:GetValAsLong) do |field|
+            case field
+              when 'foo'
+                14
+              when 'bar'
+                15
+            end
+          end
+        end
+      end
+
+      it 'creates new model object' do
+        object = model_class.from_record(rec)
+        object.should be_a_kind_of model_class
+      end
+
+      it ' extracts attributes from raw (OLE) record' do
+        object = model_class.from_record(rec)
+        object.replID.should == 11
+        object.repl_id.should == 11
+        object.replRev.should == 12
+        object.repl_rev.should == 12
+        object.replAct.should == 13
+        object.repl_act.should == 13
+      end
+
+      it 'is created by prop_accessor macro based on defined properties' do
+        model_class.instance_eval do
+          prop_accessor :foo => :i4, ['bar', :baz] => :i1
+        end
+        rec.should_receive(:GetValAsLong).with('foo').and_return(14)
+        rec.should_receive(:GetValAsLong).with('bar').and_return(15)
+        object = model_class.from_record(rec)
+        object.foo.should == 14
+        object.bar.should == 15
+        object.baz.should == 15
+      end
+
+      it 'calling prop_accessor macro twice still generates a valid extractor' do
+        model_class.instance_eval do
+          prop_accessor :foo => :i4
+          prop_accessor ['bar', :baz] => :i1
+        end
+        object = model_class.from_record(rec)
+        object.repl_id.should == 11
+        object.repl_rev.should == 12
+        object.repl_act.should == 13
+        object.foo.should == 14
+        object.bar.should == 15
+        object.baz.should == 15
+      end
+
+      it 'extracts properties of all types correctly' do
+        model_class.instance_eval do
+          prop_accessor :foo => :i4, :bar => :i1, :longint => :i8,
+                        :name => :c4, :time => :t,
+                        :price => :'d3.1', :net => :f
+        end
+        object = model_class.from_record(rec)
+        object.repl_id.should == 11
+        object.repl_rev.should == 12
+        object.repl_act.should == 13
+        object.foo.should == 14
+        object.bar.should == 15
+        object.longint.should == 1322222222455664
+        object.name.should == 'rec_name'
+        object.time.should == 'rec_time'
+        object.price.should be_within(0.0001).of(16.7)
+        object.net.should be_within(0.0001).of(89.89)
+      end
+    end
   end
 end

@@ -34,7 +34,7 @@ module Fin
       # Using static calls, create class method, that extracts attributes from raw record
       attribute_extractor = attribute_types.map do |name, type|
         case type
-          when /^[ct]/ # In future, read t AsLong and convert into DateTime
+          when /^[ct]/ # TODO: In future, read t AsLong and convert into DateTime
             ":#{name} => rec.GetValAsString('#{name}')"
           when /^i[14]/
             ":#{name} => rec.GetValAsLong('#{name}')"

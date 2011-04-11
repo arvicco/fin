@@ -5,10 +5,10 @@ module Fin
 
     # Properties as per P2ClientGate API
     prop_accessor [:isin_id, :isin] => :i8,
-                  :price => :'d16.5', # Цена котировки
-                  :volume => :i8, # 	Объём агрегированной котировки
+                  :price => :'d16.5', #       Цена котировки
+                  :volume => :i8, # 	        Объём агрегированной котировки
                   [:dir, :buysell] => :i1, #	Направление котировки: покупка (1) /продажа (2)
-                  :moment => :t #          	Время последнего обновления котировки
+                  :moment => :t #          	  Время последнего обновления котировки
 
     attr_accessor :book
 
