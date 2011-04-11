@@ -57,10 +57,9 @@ describe Fin::Position do
     its (:net_volume_rur) {should == 123456}
     its (:last_deal_id) {should == 654321}
 
-    describe '#to_s, #inspect' do
+    describe '#to_s' do
       it 'is just right' do
         subject.to_s.should == "12[1234567] 12344, open: 12345, buys: 1212, sells: 1213"
-        subject.inspect.should == "12[1234567] 12344, open: 12345, buys: 1212, sells: 1213"
       end
     end
 

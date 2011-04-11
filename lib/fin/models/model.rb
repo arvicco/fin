@@ -66,16 +66,16 @@ module Fin
       opts.each { |key, value| send "#{key}=", value }
     end
 
-    def inspect
-      each_property
-    end
-
     def each
       if block_given?
         self.class.attribute_types.each { |name, _| yield name, send(name) }
       else
         self.class.attribute_types.map { |name, _| [name, send(name)].to_enum }
       end
+    end
+
+    def inspect divider=','
+      map { |property, value| "#{property}=#{value}" }.join(divider)
     end
 
     alias each_property each

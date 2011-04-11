@@ -30,45 +30,6 @@ describe Fin::Deal do
 
     its (:book) {should == nil}
 
-#  replID=6607871
-#  replRev=6607876
-#  replAct=0
-#  id_deal=6608653
-#  sess_id=3753
-#  isin_id=154995
-#  price=22194.00000
-#  amount=3
-#  moment=2011/03/23 15:30:04.746
-#  id_ord_sell=2292952813
-#  id_ord_buy=2292952838
-#  status_sell=0
-#  status_buy=0
-#  pos=71148
-#  nosystem=0
-#  id_repo=0
-#  id_deal_multileg=0
-
-    # Поля code_sell, comment_sell, ext_id_sell, trust_sell, hedge_sell,
-    # login_sell, code_rts_sell, fee_sell, code_buy, comment_buy, ext_id_buy,
-    # trust_buy, hedge_buy, login_buy, code_rts_buy, fee_buy  -
-    # - заполняются только для своих сделок.
-
-#  code_sell=
-#  code_buy=
-#  ext_id_sell=0
-#  comment_sell=
-#  trust_sell=0
-#  ext_id_buy=0
-#  comment_buy=
-#  trust_buy=0
-#  hedge_sell=0
-#  hedge_buy=0
-#  fee_sell=0.00
-#  fee_buy=0.00
-#  login_sell=
-#  login_buy=
-#  code_rts_sell=
-#  code_rts_buy=
   end
 
 
@@ -116,10 +77,14 @@ describe Fin::Deal do
     its (:book) {should == 123456}
 
     describe '#to_s, #inspect' do
-      it 'is just right' do
+      it '#to_s reveals meaningful info' do
         subject.to_s.should == "time:12[1234567] 1234>12345"
-        subject.inspect.should == "time:12[1234567] 1234>12345"
       end
+
+      it '#inspect lists ALL properties' do
+        subject.inspect.should == "replID=12,replRev=123,replAct=,isin_id=1234567,price=1234,amount=12345,id_deal=1212,sess_id=1213,moment=time,pos=121212,nosystem=0,id_repo=0,id_deal_multileg=0,code_sell=,id_ord_sell=123456,ext_id_sell=,comment_sell=,trust_sell=,status_sell=0,hedge_sell=,fee_sell=,login_sell=,code_rts_sell=,code_buy=,id_ord_buy=654321,ext_id_buy=,comment_buy=,trust_buy=,status_buy=0,hedge_buy=,fee_buy=,login_buy=,code_rts_buy="
+      end
+
     end
 
     describe '#price_as_integer' do

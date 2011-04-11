@@ -37,10 +37,9 @@ describe Fin::Instrument do
     its (:sess_id) {should == 1213}
     its (:sess) {should == 1213}
 
-    describe '#to_s, #inspect' do
+    describe '#to_s' do
       it 'is just right' do
         subject.to_s.should == "name:short isin[symbolic isin]"
-        subject.inspect.should == "name:short isin[symbolic isin]"
       end
     end
 

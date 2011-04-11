@@ -21,13 +21,15 @@ module Fin
     end
 
     def price_as_integer
-      price.round == price ? price.to_i : price
+      if price && price.round == price
+        price.to_i
+      else
+        price
+      end
     end
 
-    def inspect
+    def to_s
       "#{repl_id}:#{price_as_integer}>#{volume}#{dir == 1 ? '+' : '-'}"
     end
-
-    alias to_s inspect
   end
 end

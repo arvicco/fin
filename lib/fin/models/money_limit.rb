@@ -40,13 +40,11 @@ module Fin
       repl_id
     end
 
-    def inspect
+    def to_s
       "Money: Old #{money_old} Amt #{money_amount} Free #{money_free} Blck #{money_blocked} " +
           "Pledge: Old #{pledge_old} Amt #{pledge_amount} Free #{pledge_free} Blck #{pledge_blocked} " +
           "VM: Reserve #{vm_reserve} Intercl #{vm_intercl} Fee: #{fee} Reserve #{fee_reserve} " +
           "Limit Spot: Buy #{limit_spot_buy} Used #{limit_spot_buy_used}"
     end
-
-    alias to_s inspect
   end
 end

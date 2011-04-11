@@ -26,10 +26,8 @@ module Fin
       isin_id
     end
 
-    def inspect
+    def to_s
       "#{repl_id}[#{isin_id}] #{pos}, open: #{open_qty}, buys: #{buys_qty}, sells: #{sells_qty}"
     end
-
-    alias to_s inspect
   end
 end

@@ -51,13 +51,16 @@ module Fin
     end
 
     def price_as_integer
-      price.round == price ? price.to_i : price
+      if price && price.round == price
+        price.to_i
+      else
+        price
+      end
     end
 
-    def inspect
+    def to_s
       "#{moment}:#{repl_id}[#{isin}] #{price}>#{amount}"
     end
 
-    alias to_s inspect
   end
 end

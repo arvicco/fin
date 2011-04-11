@@ -53,10 +53,8 @@ module Fin
       isin_id
     end
 
-    def inspect
+    def to_s
       "#{name}:#{short_isin}[#{isin}]"
     end
-
-    alias to_s inspect
   end
 end

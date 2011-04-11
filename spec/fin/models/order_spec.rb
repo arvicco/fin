@@ -42,10 +42,9 @@ describe Fin::Order do
     its (:moment) {should == 'time'}
     its (:book) {should == 123456}
 
-    describe '#to_s, #inspect' do
+    describe '#to_s' do
       it 'is just right' do
         subject.to_s.should == "12:1234>12345+"
-        subject.inspect.should == "12:1234>12345+"
       end
     end
 
