@@ -8,7 +8,7 @@ describe Fin::Deal do
   describe '#new with empty initializer' do
     subject { Fin::Deal.new }
 
-    its (:id) {should == nil} # replId
+    its (:repl_id) {should == nil} # replId
     its (:rev) {should == nil} # replRev
     its (:isin_id) {should == nil}
     its (:isin) {should == nil}
@@ -74,7 +74,7 @@ describe Fin::Deal do
 
   describe '#new with opts' do
     subject { Fin::Deal.new :isin => 1234567,
-                                   :id => 12,
+                                   :repl_id => 12,
                                    :rev => 123,
                                    :price => 1234,
                                    :amount => 12345,
@@ -94,7 +94,7 @@ describe Fin::Deal do
 
     its (:isin_id) {should == 1234567}
     its (:isin) {should == 1234567}
-    its (:id) {should == 12}
+    its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:price) {should == 1234}
     its (:amount) {should == 12345}
@@ -122,16 +122,19 @@ describe Fin::Deal do
       end
     end
 
-    describe '#price=' do
-      it 'converts given price to Integer if it is integer' do
+    describe '#price_as_integer' do
+      it 'returns price as Integer if it is Integer' do
         subject.price = 1313.0
-        subject.price.should == 1313
-        subject.price.should be_an Integer
+        subject.price.should == 1313.0
+        subject.price_as_integer.should == 1313
+        subject.price = 1313.5
+        subject.price.should == 1313.5
+        subject.price_as_integer.should == 1313.5
       end
     end
 
     describe '#index' do
-      it 'should be equal to isin_id' do
+      it 'should be equal to deal_id' do
         subject.index.should == subject.deal_id
       end
     end

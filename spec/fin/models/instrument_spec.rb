@@ -8,7 +8,7 @@ describe Fin::Instrument do
   describe '#new with empty initializer' do
     subject { Fin::Instrument.new }
 
-    its (:id) {should == nil} # replId
+    its (:repl_id) {should == nil} # replId
     its (:rev) {should == nil} # replRev
     its (:isin_id) {should == nil}
     its (:isin) {should == nil}
@@ -19,7 +19,7 @@ describe Fin::Instrument do
 
 
   describe '#new with opts' do
-    subject { Fin::Instrument.new :id => 12,
+    subject { Fin::Instrument.new :repl_id => 12,
                                      :rev => 123,
                                      :isin_id => 1234567,
                                      :isin => 'symbolic isin',
@@ -32,7 +32,7 @@ describe Fin::Instrument do
     its (:isin) {should == 'symbolic isin'}
     its (:short_isin) {should == 'short isin'}
     its (:name) {should == 'name'}
-    its (:id) {should == 12}
+    its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:sess_id) {should == 1213}
     its (:sess) {should == 1213}

@@ -10,11 +10,11 @@ describe Fin::Book, 'as a replacement for OrderBook' do
   let(:item_index) { @item.price }
 
   before(:each) do
-    @item = Fin::Order.new :id => 0, :price => 20, :isin => 123456
-    @item1 = Fin::Order.new :id => 1, :price => 15, :isin => 123456
-    @item2 = Fin::Order.new :id => 2, :price => 10, :isin => 123456
-    @zero_price_item = Fin::Order.new :id => 3, :price => 0, :isin => 123456
-    @wrong_isin_item = Fin::Order.new :id => 4, :price => 50, :isin => 456123
+    @item = Fin::Order.new :repl_id => 0, :price => 20, :isin => 123456
+    @item1 = Fin::Order.new :repl_id => 1, :price => 15, :isin => 123456
+    @item2 = Fin::Order.new :repl_id => 2, :price => 10, :isin => 123456
+    @zero_price_item = Fin::Order.new :repl_id => 3, :price => 0, :isin => 123456
+    @wrong_isin_item = Fin::Order.new :repl_id => 4, :price => 50, :isin => 456123
   end
 
   it_behaves_like 'changed_list'
@@ -128,10 +128,10 @@ describe Fin::Book, 'as a replacement for DealBook' do
   let(:item_index) { @item.deal_id }
 
   before(:each) do
-    @item = Fin::Deal.new :id => 0, :deal_id => 20, :isin => 123456
-    @item1 = Fin::Deal.new :id => 1, :deal_id => 30, :isin => 123456
-    @item2 = Fin::Deal.new :id => 2, :deal_id => 40, :isin => 123456
-    @wrong_isin_item = Fin::Deal.new :id => 3, :deal_id => 50, :isin => 456123
+    @item = Fin::Deal.new :repl_id => 0, :deal_id => 20, :isin => 123456
+    @item1 = Fin::Deal.new :repl_id => 1, :deal_id => 30, :isin => 123456
+    @item2 = Fin::Deal.new :repl_id => 2, :deal_id => 40, :isin => 123456
+    @wrong_isin_item = Fin::Deal.new :repl_id => 3, :deal_id => 50, :isin => 456123
   end
 
   it_behaves_like 'changed_list'

@@ -24,7 +24,7 @@ describe Fin::Order do
     subject { Fin::Order.new :isin => 1234567,
                                 :repl_id => 12,
                                 :rev => 123,
-                                :price => 1234,
+                                :price => 1234.0,
                                 :volume => 12345,
                                 :buysell => 1,
                                 :moment => 'time',
@@ -35,7 +35,7 @@ describe Fin::Order do
     its (:rev) {should == 123}
     its (:isin_id) {should == 1234567}
     its (:isin) {should == 1234567}
-    its (:price) {should == 1234}
+    its (:price) {should == 1234.0}
     its (:volume) {should == 12345}
     its (:dir) {should == 1}
     its (:buysell) {should == 1}
@@ -49,16 +49,19 @@ describe Fin::Order do
       end
     end
 
-    describe '#price=' do
-      it 'converts given price to Integer if it is integer' do
+    describe '#price_as_integer' do
+      it 'returns price as Integer if it is Integer' do
         subject.price = 1313.0
-        subject.price.should == 1313
-        subject.price.should be_an Integer
+        subject.price.should == 1313.0
+        subject.price_as_integer.should == 1313
+        subject.price = 1313.5
+        subject.price.should == 1313.5
+        subject.price_as_integer.should == 1313.5
       end
     end
 
     describe '#index' do
-      it 'should be equal to replId' do
+      it 'should be equal to repl_id' do
         subject.index.should == subject.repl_id
       end
     end

@@ -73,7 +73,7 @@ describe Fin::DealList do
 
       it 'deletes item from the list' do
         subject.remove(unwanted_item)
-        subject[unwanted_item.id].should == nil
+        subject[unwanted_item.deal_id].should == nil
         subject.size.should == expected_size
       end
 

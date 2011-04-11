@@ -3,18 +3,18 @@ require 'fin/shared_examples.rb'
 
 describe Fin::OrderList do
   subject { Fin::OrderList.new }
-  let(:item_index) { @item.id }
+  let(:item_index) { @item.repl_id }
   let (:new_item_book_index) {new_item.price}
 
   before(:each) do
-    @item = Fin::Order.new :isin_id => 1234, :id => 0, :price => 20
-    @item1 = Fin::Order.new :isin_id => 1234, :id => 1, :price => 10
+    @item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 20
+    @item1 = Fin::Order.new :isin_id => 1234, :repl_id => 1, :price => 10
     @same_isin_item = @item1
-    @item2 = Fin::Order.new :isin_id => 5678, :id => 2, :price => 10
+    @item2 = Fin::Order.new :isin_id => 5678, :repl_id => 2, :price => 10
     @diff_isin_item = @item2
-    @zero_price_item = Fin::Order.new :isin_id => 1234, :id => 3, :price => 0
-    @repeat_item = Fin::Order.new :isin_id => 1234, :id => 0, :price => 13
-    @repeat_zero_price_item = Fin::Order.new :isin_id => 1234, :id => 0, :price => 0
+    @zero_price_item = Fin::Order.new :isin_id => 1234, :repl_id => 3, :price => 0
+    @repeat_item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 13
+    @repeat_zero_price_item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 0
   end
 
   it_behaves_like 'changed_list'
@@ -111,7 +111,7 @@ describe Fin::OrderList do
 
       it 'deletes item from the list' do
         subject.remove(unwanted_item)
-        subject[unwanted_item.id].should == nil
+        subject[unwanted_item.repl_id].should == nil
         subject.size.should == expected_size
       end
 

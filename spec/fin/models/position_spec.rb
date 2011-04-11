@@ -46,7 +46,7 @@ describe Fin::Position do
 
     its (:isin_id) {should == 1234567}
     its (:isin) {should == 1234567}
-    its (:id) {should == 12}
+    its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:client_code) {should == 'fz1234'}
     its (:open_qty) {should == 12345}
