@@ -4,6 +4,8 @@ module Fin
   # down the road it may be subclassed from ActiveModel
   class Model
 
+    include Enumerable
+
     def self.attribute_types
       @attribute_types ||= superclass.attribute_types.dup rescue {}
     end
@@ -63,6 +65,20 @@ module Fin
       @attributes = {}
       opts.each { |key, value| send "#{key}=", value }
     end
+
+    def inspect
+      each_property
+    end
+
+    def each
+      if block_given?
+        self.class.attribute_types.each { |name, _| yield name, send(name) }
+      else
+        self.class.attribute_types.map { |name, _| [name, send(name)].to_enum }
+      end
+    end
+
+    alias each_property each
 
     # TODO: DRY principle: there should be one authoritative source for everything...
     # TODO: Should such source be schema file, or Model code?
