@@ -3,18 +3,18 @@ require 'fin/shared_examples.rb'
 
 describe Fin::Book, 'as a replacement for OrderBook' do
   subject { Fin::Book.new :item_type => Fin::Order,
-            :book_index => proc { |item| item.price },
-            :book_condition => proc { |item| item.price > 0},
-            :isin_id => 123456 }
+                          :book_index => proc { |item| item.price },
+                          :book_condition => proc { |item| item.price > 0 },
+                          :isin_id => 123456 }
 
   let(:item_index) { @item.price }
 
   before(:each) do
-    @item = Fin::Order.new :repl_id => 0, :price => 20, :isin => 123456
-    @item1 = Fin::Order.new :repl_id => 1, :price => 15, :isin => 123456
-    @item2 = Fin::Order.new :repl_id => 2, :price => 10, :isin => 123456
-    @zero_price_item = Fin::Order.new :repl_id => 3, :price => 0, :isin => 123456
-    @wrong_isin_item = Fin::Order.new :repl_id => 4, :price => 50, :isin => 456123
+    @item = Fin::Order.new :repl_id => 0, :price => 20, :isin_id => 123456
+    @item1 = Fin::Order.new :repl_id => 1, :price => 15, :isin_id => 123456
+    @item2 = Fin::Order.new :repl_id => 2, :price => 10, :isin_id => 123456
+    @zero_price_item = Fin::Order.new :repl_id => 3, :price => 0, :isin_id => 123456
+    @wrong_isin_item = Fin::Order.new :repl_id => 4, :price => 50, :isin_id => 456123
   end
 
   it_behaves_like 'changed_list'
@@ -123,15 +123,15 @@ end
 
 describe Fin::Book, 'as a replacement for DealBook' do
   subject { Fin::Book.new :item_type => Fin::Deal,
-            :book_index => proc { |item| item.deal_id },
-            :isin_id => 123456 }
+                          :book_index => proc { |item| item.deal_id },
+                          :isin_id => 123456 }
   let(:item_index) { @item.deal_id }
 
   before(:each) do
-    @item = Fin::Deal.new :repl_id => 0, :deal_id => 20, :isin => 123456
-    @item1 = Fin::Deal.new :repl_id => 1, :deal_id => 30, :isin => 123456
-    @item2 = Fin::Deal.new :repl_id => 2, :deal_id => 40, :isin => 123456
-    @wrong_isin_item = Fin::Deal.new :repl_id => 3, :deal_id => 50, :isin => 456123
+    @item = Fin::Deal.new :repl_id => 0, :deal_id => 20, :isin_id => 123456
+    @item1 = Fin::Deal.new :repl_id => 1, :deal_id => 30, :isin_id => 123456
+    @item2 = Fin::Deal.new :repl_id => 2, :deal_id => 40, :isin_id => 123456
+    @wrong_isin_item = Fin::Deal.new :repl_id => 3, :deal_id => 50, :isin_id => 456123
   end
 
   it_behaves_like 'changed_list'

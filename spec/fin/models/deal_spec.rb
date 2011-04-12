@@ -11,7 +11,6 @@ describe Fin::Deal do
     its (:repl_id) {should == nil} # replId
     its (:rev) {should == nil} # replRev
     its (:isin_id) {should == nil}
-    its (:isin) {should == nil}
     its (:deal_id) {should == nil}
     its (:id_deal) {should == nil}
     its (:sess_id) {should == nil}
@@ -34,27 +33,26 @@ describe Fin::Deal do
 
 
   describe '#new with opts' do
-    subject { Fin::Deal.new :isin => 1234567,
-                                   :repl_id => 12,
-                                   :rev => 123,
-                                   :price => 1234,
-                                   :amount => 12345,
-                                   :deal_id => 1212,
-                                   :sess_id => 1213,
-                                   :moment => 'time',
-                                   :status_sell => 0,
-                                   :status_buy => 0,
-                                   :id_ord_sell => 123456,
-                                   :id_ord_buy => 654321,
-                                   :pos => 121212, # Кол-во позиций по инструменту на рынке после сделки.
-                                   :nosystem => 0, # 1-внесистемная сделка, 0-обычная
-                                   :id_repo => 0, # Номер другой части сделки РЕПО
-                                   :id_deal_multileg => 0, # Номер сделки по связке
-                                   :book=> 123456,
+    subject { Fin::Deal.new :isin_id => 1234567,
+                            :repl_id => 12,
+                            :rev => 123,
+                            :price => 1234,
+                            :amount => 12345,
+                            :deal_id => 1212,
+                            :sess_id => 1213,
+                            :moment => 'time',
+                            :status_sell => 0,
+                            :status_buy => 0,
+                            :id_ord_sell => 123456,
+                            :id_ord_buy => 654321,
+                            :pos => 121212, # Кол-во позиций по инструменту на рынке после сделки.
+                            :nosystem => 0, # 1-внесистемная сделка, 0-обычная
+                            :id_repo => 0, # Номер другой части сделки РЕПО
+                            :id_deal_multileg => 0, # Номер сделки по связке
+                            :book=> 123456,
     }
 
     its (:isin_id) {should == 1234567}
-    its (:isin) {should == 1234567}
     its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:price) {should == 1234}
@@ -82,7 +80,7 @@ describe Fin::Deal do
       end
 
       it '#inspect lists ALL properties' do
-        subject.inspect.should == "replID=12,replRev=123,replAct=,isin_id=1234567,price=1234,amount=12345,id_deal=1212,sess_id=1213,moment=time,pos=121212,nosystem=0,id_repo=0,id_deal_multileg=0,code_sell=,id_ord_sell=123456,ext_id_sell=,comment_sell=,trust_sell=,status_sell=0,hedge_sell=,fee_sell=,login_sell=,code_rts_sell=,code_buy=,id_ord_buy=654321,ext_id_buy=,comment_buy=,trust_buy=,status_buy=0,hedge_buy=,fee_buy=,login_buy=,code_rts_buy="
+        subject.inspect.should == "replID=12,replRev=123,replAct=,isin_id=1234567,price=1234,amount=12345,id_deal=1212,sess_id=1213,moment=time,pos=121212,nosystem=0,id_deal_multileg=0,id_repo=0,code_sell=,id_ord_sell=123456,ext_id_sell=,comment_sell=,trust_sell=,status_sell=0,hedge_sell=,fee_sell=,login_sell=,code_rts_sell=,code_buy=,id_ord_buy=654321,ext_id_buy=,comment_buy=,trust_buy=,status_buy=0,hedge_buy=,fee_buy=,login_buy=,code_rts_buy="
       end
 
     end

@@ -10,7 +10,7 @@ module Fin
       @attribute_types ||= superclass.attribute_types.dup rescue {}
     end
 
-    def self.prop_accessor prop_hash
+    def self.property prop_hash
       prop_hash.each do |arg, type|
         aliases = [arg].flatten
         name = aliases.shift
@@ -85,9 +85,9 @@ module Fin
     # TODO: Maybe, Model should just read from schema file at init time?
 
     # All P2 records carry these properties
-    prop_accessor [:replID, :repl_id] => :i8,
-                  [:replRev, :repl_rev, :rev] => :i8,
-                  [:replAct, :repl_act] => :i8
+    property [:replID, :repl_id] => :i8,
+             [:replRev, :repl_rev, :rev] => :i8,
+             [:replAct, :repl_act] => :i8
 
     def index
       object_id # TODO: @repl_id?

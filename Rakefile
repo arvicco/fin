@@ -9,9 +9,9 @@ end
 require 'pathname'
 
 BASE_PATH = Pathname.new(__FILE__).dirname
-LIB_PATH =  BASE_PATH + 'lib'
-PKG_PATH =  BASE_PATH + 'pkg'
-DOC_PATH =  BASE_PATH + 'rdoc'
+LIB_PATH = BASE_PATH + 'lib'
+PKG_PATH = BASE_PATH + 'pkg'
+DOC_PATH = BASE_PATH + 'rdoc'
 
 $LOAD_PATH.unshift LIB_PATH.to_s
 require 'version'

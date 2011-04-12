@@ -14,18 +14,18 @@ describe Fin::Instrument do
     its (:isin) {should == nil}
     its (:short_isin) {should == nil}
     its (:sess_id) {should == nil}
-    its (:session) {should == nil}
+    its (:session_id) {should == nil}
   end
 
 
   describe '#new with opts' do
     subject { Fin::Instrument.new :repl_id => 12,
-                                     :rev => 123,
-                                     :isin_id => 1234567,
-                                     :isin => 'symbolic isin',
-                                     :short_isin => 'short isin',
-                                     :name => 'name',
-                                     :sess_id => 1213,
+                                  :rev => 123,
+                                  :isin_id => 1234567,
+                                  :isin => 'symbolic isin',
+                                  :short_isin => 'short isin',
+                                  :name => 'name',
+                                  :sess_id => 1213,
     }
 
     its (:isin_id) {should == 1234567}
@@ -35,7 +35,7 @@ describe Fin::Instrument do
     its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:sess_id) {should == 1213}
-    its (:sess) {should == 1213}
+    its (:session_id) {should == 1213}
 
     describe '#to_s' do
       it 'is just right' do

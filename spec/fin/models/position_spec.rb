@@ -19,33 +19,23 @@ describe Fin::Position do
     its (:net_volume_rur) {should == nil}
     its (:last_deal_id) {should == nil}
 
-#    isin_id	    i4	Уникальный числовой идентификатор инструмента
-#    client_code	c7	Код клиента
-#    open_qty	    i4	Количество позиций на начало сессии
-#    buys_qty	    i4	Количество купленных контрактов в ходе сессии
-#    sells_qty	  i4	Количество проданных контрактов в ходе сессии
-#    pos	        i4	Текущая позиция
-#    net_volume_rur	d26.2	Нетто-сумма денег, в рублях, на которую были совершены сделки.
-#             Положительное число – деньги приходят, отрицательное – деньги выплачиваются
-#    last_deal_id	  i8	Идентификатор последней сделки
   end
 
   describe '#new with opts' do
     subject { Fin::Position.new :isin_id => 1234567,
-                                   :repl_id => 12,
-                                   :repl_rev => 123,
-                                   :client_code => 'fz1234',
-                                   :open_qty => 12345,
-                                   :buys_qty => 1212,
-                                   :sells_qty => 1213,
-                                   :pos => 12344,
-                                   :net_volume_rur => 123456,
-                                   :last_deal_id => 654321,
+                                :repl_id => 12,
+                                :repl_rev => 123,
+                                :client_code => 'fz1234',
+                                :open_qty => 12345,
+                                :buys_qty => 1212,
+                                :sells_qty => 1213,
+                                :pos => 12344,
+                                :net_volume_rur => 123456,
+                                :last_deal_id => 654321,
 
     }
 
     its (:isin_id) {should == 1234567}
-    its (:isin) {should == 1234567}
     its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:client_code) {should == 'fz1234'}

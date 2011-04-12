@@ -26,7 +26,7 @@ module Fin
 
     def add? item
       if super
-        @changed = true  # Mark List as changed
+        @changed = true # Mark List as changed
         @change_count += 1
         item
       end

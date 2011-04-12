@@ -11,7 +11,6 @@ describe Fin::Order do
     its (:repl_id) {should == nil}
     its (:rev) {should == nil}
     its (:isin_id) {should == nil}
-    its (:isin) {should == nil}
     its (:price) {should == nil}
     its (:volume) {should == nil}
     its (:dir) {should == nil}
@@ -21,20 +20,19 @@ describe Fin::Order do
   end
 
   describe '#new with opts' do
-    subject { Fin::Order.new :isin => 1234567,
-                                :repl_id => 12,
-                                :rev => 123,
-                                :price => 1234.0,
-                                :volume => 12345,
-                                :buysell => 1,
-                                :moment => 'time',
-                                :book => 123456
+    subject { Fin::Order.new :isin_id => 1234567,
+                             :repl_id => 12,
+                             :rev => 123,
+                             :price => 1234.0,
+                             :volume => 12345,
+                             :buysell => 1,
+                             :moment => 'time',
+                             :book => 123456
     }
 
     its (:repl_id) {should == 12}
     its (:rev) {should == 123}
     its (:isin_id) {should == 1234567}
-    its (:isin) {should == 1234567}
     its (:price) {should == 1234.0}
     its (:volume) {should == 12345}
     its (:dir) {should == 1}

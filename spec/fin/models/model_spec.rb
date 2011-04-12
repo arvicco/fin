@@ -25,10 +25,10 @@ describe Fin::Model, "as a base class for BD models" do
 
   describe 'class macros' do
 
-    describe '.prop_accessor' do
+    describe '.property' do
       it 'creates attr_accessor in a model class, given a String or Symbol' do
         model_class.instance_eval do
-          prop_accessor :foo => :i4, 'bar' => :i4
+          property :foo => :i4, 'bar' => :i4
         end
         model_item.should respond_to :foo
         model_item.should respond_to :foo=
@@ -38,7 +38,7 @@ describe Fin::Model, "as a base class for BD models" do
 
       it 'creates attr_accessor with aliases in a model class, given an Array' do
         model_class.instance_eval do
-          prop_accessor [:foo, 'bar', :baz] => :i4
+          property [:foo, 'bar', :baz] => :i4
         end
         model_item.should respond_to :foo=
         model_item.should respond_to :bar=
@@ -54,7 +54,7 @@ describe Fin::Model, "as a base class for BD models" do
 
       it 'accepts a mix of Symbols and Arrays' do
         model_class.instance_eval do
-          prop_accessor :foo => :i4, ['bar', :baz] => :i4
+          property :foo => :i4, ['bar', :baz] => :i4
         end
         model_item.should respond_to :foo=
         model_item.should respond_to :bar=
@@ -71,7 +71,7 @@ describe Fin::Model, "as a base class for BD models" do
         model_item.bar.should == 42
         model_item.baz.should == 42
       end
-    end # describe '.prop_accessor'
+    end # describe '.property'
 
     describe '.from_record' do
       let(:rec) do # Mocks raw OLE record received through P2ClientGate callback
@@ -122,9 +122,9 @@ describe Fin::Model, "as a base class for BD models" do
         object.repl_act.should == 13
       end
 
-      it 'is created by prop_accessor macro based on defined properties' do
+      it 'is created by property macro based on defined properties' do
         model_class.instance_eval do
-          prop_accessor :foo => :i4, ['bar', :baz] => :i1
+          property :foo => :i4, ['bar', :baz] => :i1
         end
         rec.should_receive(:GetValAsLong).with('foo').and_return(14)
         rec.should_receive(:GetValAsLong).with('bar').and_return(15)
@@ -134,10 +134,10 @@ describe Fin::Model, "as a base class for BD models" do
         object.baz.should == 15
       end
 
-      it 'calling prop_accessor macro twice still generates a valid extractor' do
+      it 'calling property macro twice still generates a valid extractor' do
         model_class.instance_eval do
-          prop_accessor :foo => :i4
-          prop_accessor ['bar', :baz] => :i1
+          property :foo => :i4
+          property ['bar', :baz] => :i1
         end
         object = model_class.from_record(rec)
         object.repl_id.should == 11
@@ -150,9 +150,9 @@ describe Fin::Model, "as a base class for BD models" do
 
       it 'extracts properties of all types correctly' do
         model_class.instance_eval do
-          prop_accessor :foo => :i4, :bar => :i1, :longint => :i8,
-                        :name => :c4, :time => :t,
-                        :price => :'d3.1', :net => :f
+          property :foo => :i4, :bar => :i1, :longint => :i8,
+                   :name => :c4, :time => :t,
+                   :price => :'d3.1', :net => :f
         end
         object = model_class.from_record(rec)
         object.repl_id.should == 11

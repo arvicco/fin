@@ -13,8 +13,8 @@ other markets and other data feed types.
 
 Domain models represent distinct individual entities that appear in market data feeds
 (such as Quote, Order, Deal, Instrument, Position and whatnot). Intention is to keep
- model API very similar to ActiveModel, with a goal of full ActiveModel compatibility
- in the near future.
+model API very similar to ActiveModel, with a goal of full ActiveModel compatibility
+in the near future.
 
 Enclosed data structures (Lists and such) are effectively containers for domain objects.
 They are used to accumulate, analyse and visualize sets of domain objects, received from
@@ -24,9 +24,9 @@ by client and gateway components (data adapters) that deal with actual market da
 data analysers for storage and retrieval of domain objects passing through them.
 
 Ideally, container data structures need to be:
-1) memory-efficient
-2) thread-safe (without too much synchronization penalty)
-3) iteration-safe (adding new element while iterating should not raise exception)
+1. memory-efficient
+2. thread-safe (without too much synchronization penalty)
+3. iteration-safe (adding new element while iterating should not raise exception)
 
 == INSTALL:
 
