@@ -30,13 +30,13 @@ describe Fin::DealList do
   describe 'adding item' do
     let(:expected_number_of_books) { 1 }
 
-    context 'to empty OrderList' do
+    context 'to empty AggrOrderList' do
       let(:new_item) { @item }
 
       it_behaves_like 'adding_item_to_books'
     end
 
-    context 'to non-empty OrderList' do
+    context 'to non-empty AggrOrderList' do
       before(:each) do
         subject.add(@item).size.should == 1
       end

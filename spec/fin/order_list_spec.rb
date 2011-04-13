@@ -1,20 +1,20 @@
 require 'spec_helper'
 require 'fin/shared_examples.rb'
 
-describe Fin::OrderList do
-  subject { Fin::OrderList.new }
+describe Fin::AggrOrderList do
+  subject { Fin::AggrOrderList.new }
   let(:item_index) { @item.repl_id }
   let (:new_item_book_index) {new_item.price}
 
   before(:each) do
-    @item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 20
-    @item1 = Fin::Order.new :isin_id => 1234, :repl_id => 1, :price => 10
+    @item = Fin::AggrOrder.new :isin_id => 1234, :repl_id => 0, :price => 20
+    @item1 = Fin::AggrOrder.new :isin_id => 1234, :repl_id => 1, :price => 10
     @same_isin_item = @item1
-    @item2 = Fin::Order.new :isin_id => 5678, :repl_id => 2, :price => 10
+    @item2 = Fin::AggrOrder.new :isin_id => 5678, :repl_id => 2, :price => 10
     @diff_isin_item = @item2
-    @zero_price_item = Fin::Order.new :isin_id => 1234, :repl_id => 3, :price => 0
-    @repeat_item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 13
-    @repeat_zero_price_item = Fin::Order.new :isin_id => 1234, :repl_id => 0, :price => 0
+    @zero_price_item = Fin::AggrOrder.new :isin_id => 1234, :repl_id => 3, :price => 0
+    @repeat_item = Fin::AggrOrder.new :isin_id => 1234, :repl_id => 0, :price => 13
+    @repeat_zero_price_item = Fin::AggrOrder.new :isin_id => 1234, :repl_id => 0, :price => 0
   end
 
   it_behaves_like 'changed_list'
@@ -31,7 +31,7 @@ describe Fin::OrderList do
   describe 'adding item' do
     let(:expected_number_of_books) { 1 }
 
-    context 'to empty OrderList' do
+    context 'to empty AggrOrderList' do
       let(:new_item) { @item }
 
       it_behaves_like 'adding_item_to_books'
@@ -43,7 +43,7 @@ describe Fin::OrderList do
       end
     end
 
-    context 'to non-empty OrderList' do
+    context 'to non-empty AggrOrderList' do
       before(:each) do
         subject.add(@item).size.should == 1
       end

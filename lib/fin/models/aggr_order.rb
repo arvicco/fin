@@ -1,7 +1,7 @@
 require 'fin/models/model'
 
 module Fin
-  class Order < Model
+  class AggrOrder < Model
 
     # Properties as per P2ClientGate API
     property :isin_id => :i8, #         ”никальный числовой идентификатор инструмента

@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'fin/models/shared_examples'
 
-describe Fin::Order do
+describe Fin::AggrOrder do
 
   it_behaves_like 'model'
 
   describe '#new with empty initializer' do
-    subject { Fin::Order.new }
+    subject { Fin::AggrOrder.new }
 
     its (:repl_id) {should == nil}
     its (:rev) {should == nil}
@@ -20,7 +20,7 @@ describe Fin::Order do
   end
 
   describe '#new with opts' do
-    subject { Fin::Order.new :isin_id => 1234567,
+    subject { Fin::AggrOrder.new :isin_id => 1234567,
                              :repl_id => 12,
                              :rev => 123,
                              :price => 1234.0,

@@ -2,7 +2,7 @@ require 'fin/models/model'
 
 module Fin
   # Represents a single deal (trade) for one security
-  # Source table: FORTS_FUTTRADE_REPL::deal – cделки
+  # Source table: FORTS_FUTTRADE_REPL::deal / FORTS_FUTTRADE_REPL::user_deal – cделки
   #
   class Deal < Model
 
@@ -39,7 +39,7 @@ module Fin
              :hedge_buy => :i1, #     Признак хеджевой сделки со стороны покупателя
              :fee_buy => :'d26.2', #  Сбор по сделке покупателя
              :login_buy => :c20, #    Логин пользователя покупателя
-             :code_rts_buy => :c7 # 	 Код РТС покупателя
+             :code_rts_buy => :c7 # 	Код РТС покупателя
 
     attr_accessor :book
 
