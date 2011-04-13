@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'fin/shared_examples.rb'
 
-describe Fin::Book, 'as a replacement for OrderBook' do
-  subject { Fin::Book.new :item_type => Fin::AggrOrder,
+describe Fin::Book, 'as a replacement for QuoteBook' do
+  subject { Fin::Book.new :item_type => Fin::Quote,
                           :book_index => proc { |item| item.price },
                           :book_condition => proc { |item| item.price > 0 },
                           :isin_id => 123456 }
@@ -10,11 +10,11 @@ describe Fin::Book, 'as a replacement for OrderBook' do
   let(:item_index) { @item.price }
 
   before(:each) do
-    @item = Fin::AggrOrder.new :repl_id => 0, :price => 20, :isin_id => 123456
-    @item1 = Fin::AggrOrder.new :repl_id => 1, :price => 15, :isin_id => 123456
-    @item2 = Fin::AggrOrder.new :repl_id => 2, :price => 10, :isin_id => 123456
-    @zero_price_item = Fin::AggrOrder.new :repl_id => 3, :price => 0, :isin_id => 123456
-    @wrong_isin_item = Fin::AggrOrder.new :repl_id => 4, :price => 50, :isin_id => 456123
+    @item = Fin::Quote.new :repl_id => 0, :price => 20, :isin_id => 123456
+    @item1 = Fin::Quote.new :repl_id => 1, :price => 15, :isin_id => 123456
+    @item2 = Fin::Quote.new :repl_id => 2, :price => 10, :isin_id => 123456
+    @zero_price_item = Fin::Quote.new :repl_id => 3, :price => 0, :isin_id => 123456
+    @wrong_isin_item = Fin::Quote.new :repl_id => 4, :price => 50, :isin_id => 456123
   end
 
   it_behaves_like 'changed_list'
@@ -34,7 +34,7 @@ describe Fin::Book, 'as a replacement for OrderBook' do
   end
 
   describe '#check' do
-    it 'fails if item is not an AggrOrder' do
+    it 'fails if item is not an Quote' do
       subject.check(1).should == false
     end
 

@@ -1,8 +1,8 @@
 require 'fin/container_list'
 
 module Fin
-  # Represents Book (OrderBook, DealBook, etc...) for one security(isin)
-  # It is used as additional index by BookedList subclass (OrderList, DealList)
+  # Represents Book (QuoteBook, DealBook, etc...) for one security(isin)
+  # It is used as additional index by BookedList subclass (QuoteList, DealList)
   class Book < ContainerList
 
     attr_reader :isin_id

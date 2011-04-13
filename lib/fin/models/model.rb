@@ -1,5 +1,5 @@
 module Fin
-  # Represents business domain model for a single item (Order, Deal, Instrument, etc...)
+  # Represents business domain model for a single item (Quote, Deal, Instrument, etc...)
   # currently it is only used to extract common functionality from record wrappers,
   # down the road it may be subclassed from ActiveModel
   class Model

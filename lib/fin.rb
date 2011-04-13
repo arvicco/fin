@@ -1,9 +1,9 @@
 require 'version'
 
-require 'fin/aggr_order_list'
+require 'fin/quote_list'
 require 'fin/deal_list'
 require 'fin/models/deal'
-require 'fin/models/aggr_order'
+require 'fin/models/quote'
 #require 'fin/models/order'
 require 'fin/models/instrument'
 require 'fin/models/position'

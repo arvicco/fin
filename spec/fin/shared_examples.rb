@@ -340,7 +340,7 @@ shared_examples_for 'creating_books' do
     book = subject.books[new_item.isin_id]
     if new_item_book_index == 0
       case subject
-        when Fin::AggrOrderList
+        when Fin::QuoteList
           new_item.book.should == nil
         else
           new_item.book.should == book

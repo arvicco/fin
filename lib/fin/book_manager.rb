@@ -5,7 +5,7 @@ module Fin
   # Adds to including List a set of @books, each related to a single security(isin).
   # @books is effectively an additional index in a List, a set of containers for
   # its items, grouped by item's isin_id.
-  # For example: OrderBook, DealBook
+  # For example: QuoteBook, DealBook
   #
   module BookManager
 
