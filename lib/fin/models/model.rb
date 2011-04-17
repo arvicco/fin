@@ -59,6 +59,11 @@ module Fin
 
 #      puts "In #{self}:, #{extractor_body"
       instance_eval extractor_body
+
+      to_msg_body = "def self.to_msg(rec)
+                          { #{attribute_extractor} }
+                        end"
+      instance_eval to_msg_body
     end
 
     def initialize opts = {}
