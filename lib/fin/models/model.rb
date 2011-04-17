@@ -1,7 +1,7 @@
 module Fin
   # Represents business domain model for a single item (Quote, Deal, Instrument, etc...)
-  # currently it is only used to extract common functionality from record wrappers,
-  # down the road it may be subclassed from ActiveModel
+  # Currently it is only used to extract common functionality from record wrappers,
+  # down the road the goal is to add ActiveModel compatibility
   class Model
 
     include Enumerable
@@ -33,7 +33,7 @@ module Fin
         end
       end
 
-      # Using static calls, create class method, that extracts attributes from raw record
+      # Using static calls, create class method extracting attributes from raw records
       attribute_extractor = attribute_types.map do |name, type|
         case type
           when /^[ct]/ # TODO: In future, read t AsLong and convert into DateTime
@@ -74,11 +74,11 @@ module Fin
       end
     end
 
+    alias each_property each
+
     def inspect divider=','
       map { |property, value| "#{property}=#{value}" }.join(divider)
     end
-
-    alias each_property each
 
     # TODO: DRY principle: there should be one authoritative source for everything...
     # TODO: Should such source be schema file, or Model code?

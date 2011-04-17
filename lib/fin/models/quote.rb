@@ -1,6 +1,10 @@
 require 'fin/models/model'
 
 module Fin
+
+  # Represents Depth-of-Market Aggregate Order for a given security and price level.
+  # Source table: 	FORTS_OPTAGGR**_REPL::orders_aggr, where (**) is 5, 20, 50
+  #
   class Quote < Model
 
     # Properties as per P2ClientGate API

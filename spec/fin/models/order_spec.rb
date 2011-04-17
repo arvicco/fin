@@ -1,44 +1,28 @@
 require 'spec_helper'
 require 'fin/models/shared_examples'
 
-describe Fin::Quote do
+describe Fin::Order do
 
   it_behaves_like 'model'
 
   describe '#new with empty initializer' do
-    subject { Fin::Quote.new }
+    subject { Fin::Order.new }
 
-    its (:repl_id) {should == nil}
-    its (:rev) {should == nil}
-    its (:isin_id) {should == nil}
-    its (:price) {should == nil}
-    its (:volume) {should == nil}
-    its (:dir) {should == nil}
-    its (:buysell) {should == nil}
-    its (:moment) {should == nil}
-    its (:book) {should == nil}
+    it 'has all nil properties' do
+      subject.class.attribute_types.each {|prop, _| subject.send(prop).should == nil}
+    end
   end
 
   describe '#new with opts' do
-    subject { Fin::Quote.new :isin_id => 1234567,
-                             :repl_id => 12,
-                             :rev => 123,
-                             :price => 1234.0,
-                             :volume => 12345,
-                             :buysell => 1,
-                             :moment => 'time',
-                             :book => 123456
-    }
+    let(:property_hash) do
+      {:repl_id => 12,
+      }
+    end
+    subject { Fin::Order.new property_hash }
 
-    its (:repl_id) {should == 12}
-    its (:rev) {should == 123}
-    its (:isin_id) {should == 1234567}
-    its (:price) {should == 1234.0}
-    its (:volume) {should == 12345}
-    its (:dir) {should == 1}
-    its (:buysell) {should == 1}
-    its (:moment) {should == 'time'}
-    its (:book) {should == 123456}
+    it 'has all properties set correctly' do
+      property_hash.each {|prop, value| subject.send(prop).should == value}
+    end
 
     describe '#to_s' do
       it 'is just right' do

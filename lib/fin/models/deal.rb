@@ -2,7 +2,7 @@ require 'fin/models/model'
 
 module Fin
   # Represents a single deal (trade) for one security
-  # Source table: FORTS_FUTTRADE_REPL::deal / FORTS_FUTTRADE_REPL::user_deal Ц cделки
+  # Source table: FORTS_FUTTRADE_REPL::deal / user_deal Ц cделки
   #
   class Deal < Model
 

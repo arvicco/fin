@@ -2,8 +2,8 @@ require 'fin/models/quote'
 require 'fin/book_manager'
 
 module Fin
-  # Represents list of ALL Quotes, indexed by id (replId)
-  # Its @books is a set of QuoteBooks by isin. Each QuoteBook lists Quotes by price.
+  # Represents list of ALL Quotes, indexed by repl_id
+  # Its @books is a set of QuoteBooks by isin_id. Each QuoteBook lists Quotes by price.
   class QuoteList < ContainerList
 
     include BookManager
