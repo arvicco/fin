@@ -3,92 +3,49 @@ require 'fin/models/shared_examples'
 
 describe Fin::MoneyLimit do
 
-  it_behaves_like 'model'
-
   describe '#new with empty initializer' do
+    let(:property_hash) { {} }
     subject { Fin::MoneyLimit.new }
 
-    its (:repl_id) {should == nil} # replId
-    its (:repl_rev) {should == nil} # replRev
-    its (:client_code) {should == nil}
-    its (:money_old) {should == nil}
-    its (:money_amount) {should == nil}
-    its (:money_free) {should == nil}
-    its (:money_blocked) {should == nil}
-    its (:pledge_old) {should == nil}
-    its (:pledge_amount) {should == nil}
-    its (:pledge_free) {should == nil}
-    its (:pledge_blocked) {should == nil}
-    its (:vm_reserve) {should == nil}
-    its (:vm_intercl) {should == nil}
-    its (:fee) {should == nil}
-    its (:fee_reserve) {should == nil}
-    its (:limit_spot_buy) {should == nil}
-    its (:limit_spot_buy_used) {should == nil}
-    its (:coeff_go) {should == nil}
-    its (:coeff_liquidity) {should == nil}
-    its (:is_auto_update_limit) {should == nil}
-    its (:is_auto_update_spot_limit) {should == nil}
-    its (:no_fut_discount) {should == nil}
-    its (:limits_set) {should == nil}
-    its (:premium) {should == nil}
-    its (:premium_order_reserve) {should == nil}
+    it_behaves_like 'model'
 
+    it 'has all nil properties' do
+      subject.class.attribute_types.each { |prop, _| subject.send(prop).should == nil }
+    end
   end
 
   describe '#new with opts' do
-    subject { Fin::MoneyLimit.new :repl_id => 12,
-                                  :repl_rev => 123,
-                                  :client_code => '1234',
-                                  :money_old => 1234,
-                                  :money_amount => 12345,
-                                  :money_free => 123456,
-                                  :money_blocked => 1,
-                                  :pledge_old => 12,
-                                  :pledge_amount => 123,
-                                  :pledge_free => 1234,
-                                  :pledge_blocked => 12345,
-                                  :vm_reserve => 123456,
-                                  :vm_intercl => 1,
-                                  :fee => 12,
-                                  :fee_reserve => 123,
-                                  :limit_spot_buy => 1234,
-                                  :limit_spot_buy_used => 12345,
-                                  :coeff_go => 123456,
-                                  :coeff_liquidity => 1,
-                                  :is_auto_update_limit => 1,
-                                  :is_auto_update_spot_limit => 0,
-                                  :no_fut_discount => 1,
-                                  :limits_set => 1,
-                                  :premium => 123,
-                                  :premium_order_reserve => 1234,
-    }
+    let(:property_hash) do
+      {:repl_id => 12,
+       :repl_rev => 123,
+       :client_code => '1234',
+       :money_old => 1234,
+       :money_amount => 12345,
+       :money_free => 123456,
+       :money_blocked => 1,
+       :pledge_old => 12,
+       :pledge_amount => 123,
+       :pledge_free => 1234,
+       :pledge_blocked => 12345,
+       :vm_reserve => 123456,
+       :vm_intercl => 1,
+       :fee => 12,
+       :fee_reserve => 123,
+       :limit_spot_buy => 1234,
+       :limit_spot_buy_used => 12345,
+       :coeff_go => 123456,
+       :coeff_liquidity => 1,
+       :is_auto_update_limit => 1,
+       :is_auto_update_spot_limit => 0,
+       :no_fut_discount => 1,
+       :limits_set => 1,
+       :premium => 123,
+       :premium_order_reserve => 1234,
+      }
+    end
+    subject { Fin::MoneyLimit.new property_hash }
 
-    its (:repl_id) {should == 12} # replId
-    its (:repl_rev) {should == 123} # replRev
-    its (:client_code) {should == '1234'}
-    its (:money_old) {should == 1234}
-    its (:money_amount) {should == 12345}
-    its (:money_free) {should == 123456}
-    its (:money_blocked) {should == 1}
-    its (:pledge_old) {should == 12}
-    its (:pledge_amount) {should == 123}
-    its (:pledge_free) {should == 1234}
-    its (:pledge_blocked) {should == 12345}
-    its (:vm_reserve) {should == 123456}
-    its (:vm_intercl) {should == 1}
-    its (:fee) {should == 12}
-    its (:fee_reserve) {should == 123}
-    its (:limit_spot_buy) {should == 1234}
-    its (:limit_spot_buy_used) {should == 12345}
-    its (:coeff_go) {should == 123456}
-    its (:coeff_liquidity) {should == 1}
-    its (:is_auto_update_limit) {should == 1}
-    its (:is_auto_update_spot_limit) {should == 0}
-    its (:no_fut_discount) {should == 1}
-    its (:limits_set) {should == 1}
-    its (:premium) {should == 123}
-    its (:premium_order_reserve) {should == 1234}
+    it_behaves_like 'model'
 
     describe '#to_s' do
       it 'is just right' do

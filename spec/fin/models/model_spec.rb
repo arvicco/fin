@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'fin/models/shared_examples'
 
 describe Fin::Model do
+  let(:property_hash) { {} }
+
   it_behaves_like 'model'
 end
 

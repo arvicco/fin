@@ -3,39 +3,32 @@ require 'fin/models/shared_examples'
 
 describe Fin::Instrument do
 
-  it_behaves_like 'model'
-
   describe '#new with empty initializer' do
+    let(:property_hash) { {} }
     subject { Fin::Instrument.new }
 
-    its (:repl_id) {should == nil} # replId
-    its (:rev) {should == nil} # replRev
-    its (:isin_id) {should == nil}
-    its (:isin) {should == nil}
-    its (:short_isin) {should == nil}
-    its (:sess_id) {should == nil}
-    its (:session_id) {should == nil}
+    it_behaves_like 'model'
+
+    it 'has all nil properties' do
+      subject.class.attribute_types.each { |prop, _| subject.send(prop).should == nil }
+    end
   end
 
-
   describe '#new with opts' do
-    subject { Fin::Instrument.new :repl_id => 12,
-                                  :rev => 123,
-                                  :isin_id => 1234567,
-                                  :isin => 'symbolic isin',
-                                  :short_isin => 'short isin',
-                                  :name => 'name',
-                                  :sess_id => 1213,
-    }
+    let(:property_hash) do
+      {:repl_id => 12,
+       :rev => 123,
+       :isin_id => 1234567,
+       :isin => 'symbolic isin',
+       :short_isin => 'short isin',
+       :name => 'name',
+       :sess_id => 1213,
+      }
+    end
+    subject { Fin::Instrument.new property_hash }
 
-    its (:isin_id) {should == 1234567}
-    its (:isin) {should == 'symbolic isin'}
-    its (:short_isin) {should == 'short isin'}
-    its (:name) {should == 'name'}
-    its (:repl_id) {should == 12}
-    its (:rev) {should == 123}
-    its (:sess_id) {should == 1213}
     its (:session_id) {should == 1213}
+    it_behaves_like 'model'
 
     describe '#to_s' do
       it 'is just right' do

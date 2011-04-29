@@ -49,14 +49,14 @@ module Fin
 #    def self.index_for rec
 #      rec.GetValAsLong('replID')
 #    end
-#
-#    def index
-#      repl_id
-#    end
-#
-#    def to_s
-#      "#{repl_id}:#{price_as_integer}>#{volume}#{dir == 1 ? '+' : '-'}"
-#    end
+
+    def index
+      repl_id
+    end
+
+    def to_s
+      "#{repl_id}:#{price_as_integer}>#{amount}#{dir == 1 ? '+' : '-'}"
+    end
 
     def price_as_integer
       if price && price.round == price
