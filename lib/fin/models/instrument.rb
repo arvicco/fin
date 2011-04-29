@@ -5,6 +5,7 @@ module Fin
   # Source table: FORTS_FUTINFO_REPL::fut_sess_contents
   #
   class Instrument < Model
+    model_class_id 12
 
     # Properties as per P2ClientGate API
     property [:sess_id, :session_id] => :i4, # Номер сессии.

@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'fin/models/shared_examples'
 
 describe Fin::Model do
+  let(:model_class_id) { 0 }
   let(:property_hash) { {} }
 
   it_behaves_like 'model'
@@ -75,6 +76,37 @@ describe Fin::Model, "as a base class for BD models" do
       end
     end # describe '.property'
 
+    describe ' model subclasses tracking' do
+      describe '.model_class_id' do
+        it 'sets/accesses uniform class identifier for this class' do
+          model_class.model_class_id.should be_nil
+          model_class.instance_eval do
+            model_class_id 1313
+          end
+          model_class.model_class_id.should == 1313
+          model_class.model_class_id.should == 1313
+        end
+
+        it 'adds class identifier to list of model classes' do
+          model_class.instance_eval do
+            model_class_id 1313
+          end
+          Fin::Model.model_classes[1313].should == model_class
+        end
+
+        it 'is 0 for Fin::Model itself' do
+          Fin::Model.model_class_id.should == 0
+        end
+      end
+
+      describe '.model_classes' do
+        it 'contains at least a reference to Fin::Model itself' do
+          Fin::Model.model_classes.should have_value Fin::Model
+        end
+
+      end
+
+    end
     describe '.from_record' do
       let(:rec) do # Mocks raw OLE record received through P2ClientGate callback
         mock('record').tap do |mock|

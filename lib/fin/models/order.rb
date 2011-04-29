@@ -10,6 +10,7 @@ module Fin
   # from information arriving via (full) 'orders_log' table...
   #
   class Order < Model
+    model_class_id 14
 
     # Properties as per P2ClientGate API
     property [:id_ord, :order_id] => :i8, # 	 Номер заявки

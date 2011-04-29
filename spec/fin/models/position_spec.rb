@@ -2,6 +2,23 @@ require 'spec_helper'
 require 'fin/models/shared_examples'
 
 describe Fin::Position do
+  let(:model_class_id) { 15 }
+
+  shared_examples_for 'position_with_set_properties' do
+    it_behaves_like 'model'
+
+    describe '#to_s' do
+      it 'is just right' do
+        subject.to_s.should == "12[1234567] 12344, open: 12345, buys: 1212, sells: 1213"
+      end
+    end
+
+    describe '#index' do
+      it 'should be equal to isin_id' do
+        subject.index.should == subject.isin_id
+      end
+    end
+  end
 
   describe '#new with empty initializer' do
     let(:property_hash) { {} }
@@ -30,20 +47,7 @@ describe Fin::Position do
       }
     end
     subject { Fin::Position.new property_hash }
-
-    it_behaves_like 'model'
-
-    describe '#to_s' do
-      it 'is just right' do
-        subject.to_s.should == "12[1234567] 12344, open: 12345, buys: 1212, sells: 1213"
-      end
-    end
-
-    describe '#index' do
-      it 'should be equal to isin_id' do
-        subject.index.should == subject.isin_id
-      end
-    end
+    it_behaves_like 'position_with_set_properties'
   end
 end
 

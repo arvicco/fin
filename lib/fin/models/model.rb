@@ -10,6 +10,19 @@ module Fin
       @attribute_types ||= superclass.attribute_types.dup rescue {}
     end
 
+    def self.model_class_id value = nil
+      if value
+        @model_class_id ||= value
+        model_classes[@model_class_id] = self
+      else
+        @model_class_id
+      end
+    end
+
+    def self.model_classes
+      @model_classes ||= superclass.model_classes rescue {} #shared list for all subclasses
+    end
+
     def self.property prop_hash
       prop_hash.each do |arg, type|
         aliases = [arg].flatten
@@ -62,13 +75,16 @@ module Fin
 
       to_msg_body = "def self.to_msg(rec)
                           { #{attribute_extractor} }
-                        end"
+                     end"
       instance_eval to_msg_body
     end
 
-    def initialize opts = {}
+    # TODO: Builder pattern, to avoid args Array creation on each initialize?
+    def initialize *args
       @attributes = {}
-      opts.each { |key, value| send "#{key}=", value }
+      opts = args.last.is_a?(Hash) ? args.pop : {}
+      each_with_index { |(name, _), i| send "#{name}=", args[i] } unless args.empty?
+      opts.each { |name, value| send "#{name}=", value }
     end
 
     def each
@@ -97,5 +113,8 @@ module Fin
     def index
       object_id # TODO: @repl_id?
     end
+
+    # Fin::Model itself has model_class_id 0
+    model_class_id 0
   end
 end

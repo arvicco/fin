@@ -2,6 +2,28 @@ require 'spec_helper'
 require 'fin/models/shared_examples'
 
 describe Fin::MoneyLimit do
+  let(:model_class_id) { 13 }
+
+  shared_examples_for 'limit_with_set_properties' do
+
+    it_behaves_like 'model'
+
+    describe '#to_s' do
+      it 'is just right' do
+        right = "Money: Old 1234 Amt 12345 Free 123456 Blck 1 " +
+            "Pledge: Old 12 Amt 123 Free 1234 Blck 12345 " +
+            "VM: Reserve 123456 Intercl 1 Fee: 12 Reserve 123 " +
+            "Limit Spot: Buy 1234 Used 12345"
+        subject.to_s.should == right
+      end
+    end
+
+    describe '#index' do
+      it 'should be equal to repl_id' do
+        subject.index.should == subject.repl_id
+      end
+    end
+  end
 
   describe '#new with empty initializer' do
     let(:property_hash) { {} }
@@ -44,24 +66,7 @@ describe Fin::MoneyLimit do
       }
     end
     subject { Fin::MoneyLimit.new property_hash }
-
-    it_behaves_like 'model'
-
-    describe '#to_s' do
-      it 'is just right' do
-        right = "Money: Old 1234 Amt 12345 Free 123456 Blck 1 " +
-            "Pledge: Old 12 Amt 123 Free 1234 Blck 12345 " +
-            "VM: Reserve 123456 Intercl 1 Fee: 12 Reserve 123 " +
-            "Limit Spot: Buy 1234 Used 12345"
-        subject.to_s.should == right
-      end
-    end
-
-    describe '#index' do
-      it 'should be equal to repl_id' do
-        subject.index.should == subject.repl_id
-      end
-    end
+    it_behaves_like 'limit_with_set_properties'
   end
 end
 

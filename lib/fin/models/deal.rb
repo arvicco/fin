@@ -5,6 +5,7 @@ module Fin
   # Source table: FORTS_FUTTRADE_REPL::deal / user_deal Ц cделки
   #
   class Deal < Model
+    model_class_id 11
 
     # Properties as per P2ClientGate API
     property :isin_id => :i4, #              - ”никальный числовой идент. инструмента
@@ -60,7 +61,7 @@ module Fin
     end
 
     def to_s
-      "#{moment}:#{repl_id}[#{isin_id}] #{price}>#{amount}"
+      "#{moment}:#{deal_id}[#{isin_id}] #{price}>#{amount}"
     end
 
   end

@@ -5,6 +5,8 @@ module Fin
   # Source table: FORTS_ PART_REPL::part – информация о средствах и лимитах
   #
   class MoneyLimit < Model
+    model_class_id 13
+
     # Properties as per P2ClientGate API
     property :client_code => :c7, #         Код клиента
              :money_old => :'d26.2', #      Денег на начало сессии

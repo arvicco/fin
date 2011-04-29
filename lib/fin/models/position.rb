@@ -5,6 +5,7 @@ module Fin
   # Source table: FORTS_POS_REPL::position
   #
   class Position < Model
+    model_class_id 15
 
     # Properties as per P2ClientGate API
     property :isin_id => :i4, #        ”никальный числовой идентификатор инструмента

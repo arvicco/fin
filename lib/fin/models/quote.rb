@@ -6,6 +6,7 @@ module Fin
   # Source table: 	FORTS_OPTAGGR**_REPL::orders_aggr, where (**) is 5, 20, 50
   #
   class Quote < Model
+    model_class_id 16
 
     # Properties as per P2ClientGate API
     property :isin_id => :i8, #         ”никальный числовой идентификатор инструмента

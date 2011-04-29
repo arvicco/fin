@@ -52,9 +52,22 @@ shared_examples_for 'model' do
       end
     end
   end
+
   describe '#inspect' do
     it 'lists all properties' do
       subject.inspect.should == subject.map { |prop, value| "#{prop}=#{value}" }.join(',')
+    end
+  end
+
+  describe '.model_class_id' do
+    it 'is properly set' do
+      described_class.model_class_id.should == model_class_id
+    end
+
+    it 'is added to model classes list' do
+      id = described_class.model_class_id
+      Fin::Model.model_classes[id].should == described_class
+      p Fin::Model.model_classes
     end
   end
 end
