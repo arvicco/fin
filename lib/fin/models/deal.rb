@@ -15,12 +15,13 @@ module Fin
              [:sess_id, :session_id] => :i4, # Идентификатор сессии
              :moment => :t, #     Время заключения сделки.
              :pos => :i4, #       Кол-во позиций по инструменту на рынке после сделки.
-             :nosystem => :i1, #  1-внесистемная сделка, 0-обычная
-             [:id_deal_multileg, :deal_multileg_id] => :i8,
-             # 		                           - Номер сделки по связке
-             [:id_repo, :repo_id] => :i8 #   - Номер другой части сделки РЕПО
+             :nosystem => :i1 #  1-внесистемная сделка, 0-обычная
 
-    # Эти поля заполняются только для своих сделок:
+    # Optional fields, only for repo/multileg deals:
+    property [:id_deal_multileg, :deal_multileg_id] => :i8, # Номер сделки по связке
+             [:id_repo, :repo_id] => :i8 #                    Номер другой части сделки РЕПО
+
+    # Optional fields, only for OWN deals:
     property :code_sell => :c7, #     Код продавца:status_sell,
              :id_ord_sell => :i8, #   Номер заявки продавца
              :ext_id_sell => :i4, #   Внешний номер из заявки продавца

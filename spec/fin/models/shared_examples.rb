@@ -67,7 +67,7 @@ shared_examples_for 'model' do
     it 'is added to model classes list' do
       id = described_class.model_class_id
       Fin::Model.model_classes[id].should == described_class
-      p Fin::Model.model_classes
+      described_class.model_classes[id].should == described_class
     end
   end
 end

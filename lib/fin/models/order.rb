@@ -47,9 +47,9 @@ module Fin
 #                 o	1 – Заявка добавлена
 #                 o	2 – Заявка сведена в сделку
 
-#    def self.index_for rec
-#      rec.GetValAsLong('replID')
-#    end
+    def self.index_for rec
+      rec.GetValAsLong('replID')
+    end
 
     def index
       repl_id

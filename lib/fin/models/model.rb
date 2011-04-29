@@ -47,6 +47,8 @@ module Fin
       end
 
       # Using static calls, create class method extracting attributes from raw records
+#      required_attributes = []
+#      optional_attributes = []
       attribute_extractor = attribute_types.map do |name, type|
         case type
           when /^[ct]/ # TODO: In future, read t AsLong and convert into DateTime
@@ -66,17 +68,29 @@ module Fin
         end
       end.join(",\n")
 
-      extractor_body = "def self.from_record(rec)
-                          new( #{attribute_extractor} )
+      extractor_body = "def self.extract_attributes rec
+                          [{#{attribute_extractor}}]
                         end"
 
 #      puts "In #{self}:, #{extractor_body"
       instance_eval extractor_body
+    end
 
-      to_msg_body = "def self.to_msg(rec)
-                          { #{attribute_extractor} }
-                     end"
-      instance_eval to_msg_body
+    def self.from_record rec
+      new *extract_attributes(rec)
+    end
+
+    # Extracts attributes from record into a serializable format (Array)
+    # Returns an Array where 1st element is a model_class_id of our Model subclass,
+    # and second element is a list of arguments to its initialize.
+    def self.to_msg rec
+      extract_attributes(rec).unshift(model_class_id)
+    end
+
+    # Unpacks attributes into appropriate Model subclass
+    def self.from_msg msg
+      class_id, args = msg
+      model_classes[class_id].new args
     end
 
     # TODO: Builder pattern, to avoid args Array creation on each initialize?
