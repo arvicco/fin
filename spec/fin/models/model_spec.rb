@@ -26,121 +26,121 @@ describe Fin::Model, "as a base class for BD models" do
     end
   end
 
-  describe 'class macros' do
+  describe '.property' do
+    it 'creates attr_accessor in a model class, given a String or Symbol' do
+      model_class.instance_eval do
+        property :foo => :i4, 'bar' => :i4
+      end
+      model_item.should respond_to :foo
+      model_item.should respond_to :foo=
+      model_item.should respond_to :bar
+      model_item.should respond_to :bar=
+    end
 
-    describe '.property' do
-      it 'creates attr_accessor in a model class, given a String or Symbol' do
+    it 'creates attr_accessor with aliases in a model class, given an Array' do
+      model_class.instance_eval do
+        property [:foo, 'bar', :baz] => :i4
+      end
+      model_item.should respond_to :foo=
+      model_item.should respond_to :bar=
+      model_item.should respond_to :baz=
+      model_item.should respond_to :foo
+      model_item.should respond_to :bar
+      model_item.should respond_to :baz
+      model_item.foo = 1313
+      model_item.foo.should == 1313
+      model_item.bar.should == 1313
+      model_item.baz.should == 1313
+    end
+
+    it 'accepts a mix of Symbols and Arrays' do
+      model_class.instance_eval do
+        property :foo => :i4, ['bar', :baz] => :i4
+      end
+      model_item.should respond_to :foo=
+      model_item.should respond_to :bar=
+      model_item.should respond_to :baz=
+      model_item.should respond_to :foo
+      model_item.should respond_to :bar
+      model_item.should respond_to :baz
+      model_item.foo = 1313
+      model_item.foo.should == 1313
+      model_item.bar.should_not == 1313
+      model_item.baz.should_not == 1313
+      model_item.bar = 42
+      model_item.foo.should == 1313
+      model_item.bar.should == 42
+      model_item.baz.should == 42
+    end
+  end # describe '.property'
+
+  describe ' model subclasses tracking' do
+    describe '.model_class_id' do
+      it 'sets/accesses uniform class identifier for this class' do
+        model_class.model_class_id.should be_nil
         model_class.instance_eval do
-          property :foo => :i4, 'bar' => :i4
+          model_class_id 1313
         end
-        model_item.should respond_to :foo
-        model_item.should respond_to :foo=
-        model_item.should respond_to :bar
-        model_item.should respond_to :bar=
+        model_class.model_class_id.should == 1313
+        model_class.model_class_id.should == 1313
       end
 
-      it 'creates attr_accessor with aliases in a model class, given an Array' do
+      it 'adds class identifier to list of model classes' do
         model_class.instance_eval do
-          property [:foo, 'bar', :baz] => :i4
+          model_class_id 1313
         end
-        model_item.should respond_to :foo=
-        model_item.should respond_to :bar=
-        model_item.should respond_to :baz=
-        model_item.should respond_to :foo
-        model_item.should respond_to :bar
-        model_item.should respond_to :baz
-        model_item.foo = 1313
-        model_item.foo.should == 1313
-        model_item.bar.should == 1313
-        model_item.baz.should == 1313
+        Fin::Model.model_classes[1313].should == model_class
       end
 
-      it 'accepts a mix of Symbols and Arrays' do
-        model_class.instance_eval do
-          property :foo => :i4, ['bar', :baz] => :i4
-        end
-        model_item.should respond_to :foo=
-        model_item.should respond_to :bar=
-        model_item.should respond_to :baz=
-        model_item.should respond_to :foo
-        model_item.should respond_to :bar
-        model_item.should respond_to :baz
-        model_item.foo = 1313
-        model_item.foo.should == 1313
-        model_item.bar.should_not == 1313
-        model_item.baz.should_not == 1313
-        model_item.bar = 42
-        model_item.foo.should == 1313
-        model_item.bar.should == 42
-        model_item.baz.should == 42
+      it 'is 0 for Fin::Model itself' do
+        Fin::Model.model_class_id.should == 0
       end
-    end # describe '.property'
+    end
 
-    describe ' model subclasses tracking' do
-      describe '.model_class_id' do
-        it 'sets/accesses uniform class identifier for this class' do
-          model_class.model_class_id.should be_nil
-          model_class.instance_eval do
-            model_class_id 1313
-          end
-          model_class.model_class_id.should == 1313
-          model_class.model_class_id.should == 1313
-        end
-
-        it 'adds class identifier to list of model classes' do
-          model_class.instance_eval do
-            model_class_id 1313
-          end
-          Fin::Model.model_classes[1313].should == model_class
-        end
-
-        it 'is 0 for Fin::Model itself' do
-          Fin::Model.model_class_id.should == 0
-        end
-      end
-
-      describe '.model_classes' do
-        it 'contains at least a reference to Fin::Model itself' do
-          Fin::Model.model_classes.should have_value Fin::Model
-        end
-
+    describe '.model_classes' do
+      it 'contains at least a reference to Fin::Model itself' do
+        Fin::Model.model_classes.should have_value Fin::Model
       end
 
     end
-    describe '.from_record' do
-      let(:rec) do # Mocks raw OLE record received through P2ClientGate callback
-        mock('record').tap do |mock|
-          mock.stub(:GetValAsString) do |field|
-            case field
-              when 'replID'
-                '11'
-              when 'replRev'
-                '12'
-              when 'replAct'
-                '13'
-              when 'longint'
-                '1322222222455664'
-              when 'name'
-                'rec_name'
-              when 'time'
-                'rec_time'
-              when 'price'
-                '16.7'
-              when 'net'
-                '89.89'
-            end
+
+  end
+
+  context 'with mock record' do
+    let(:rec) do # Mocks raw OLE record received through P2ClientGate callback
+      mock('record').tap do |mock|
+        mock.stub(:GetValAsString) do |field|
+          case field
+            when 'replID'
+              '11'
+            when 'replRev'
+              '12'
+            when 'replAct'
+              '13'
+            when 'longint'
+              '1322222222455664'
+            when 'name'
+              'rec_name'
+            when 'time'
+              'rec_time'
+            when 'price'
+              '16.7'
+            when 'net'
+              '89.89'
           end
-          mock.stub(:GetValAsLong) do |field|
-            case field
-              when 'foo'
-                14
-              when 'bar'
-                15
-            end
+        end
+        mock.stub(:GetValAsLong) do |field|
+          case field
+            when 'foo'
+              14
+            when 'bar'
+              15
           end
         end
       end
+    end
 
+    describe '.from_record' do
       it 'creates new model object' do
         object = model_class.from_record(rec)
         object.should be_a_kind_of model_class
@@ -200,6 +200,50 @@ describe Fin::Model, "as a base class for BD models" do
         object.price.should be_within(0.0001).of(16.7)
         object.net.should be_within(0.0001).of(89.89)
       end
-    end
-  end
+    end # from_record
+
+    context 'serialization' do
+      before do
+        model_class.instance_eval do
+          model_class_id 1313
+          property :foo => :i4, :bar => :i1, :longint => :i8,
+                   :name => :c4, :time => :t,
+                   :price => :'d3.1', :net => :f
+        end
+      end
+
+      describe '.from_msg' do
+        it 'allows restoration of original object from serializable data' do
+          msg = model_class.to_msg(rec)
+          object = model_class.from_msg(msg)
+          object.repl_id.should == 11
+          object.repl_rev.should == 12
+          object.repl_act.should == 13
+          object.foo.should == 14
+          object.bar.should == 15
+          object.longint.should == 1322222222455664
+          object.name.should == 'rec_name'
+          object.time.should == 'rec_time'
+          object.price.should be_within(0.0001).of(16.7)
+          object.net.should be_within(0.0001).of(89.89)
+        end
+      end # from_msg
+
+      describe '.to_msg', 'Class method!' do
+        it 'converts RECORD into serializable representation' do
+          model_class.to_msg(rec).should ==
+              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", "rec_time", 16.7, 89.89]
+        end
+      end # to_msg
+
+      describe '#to_msg', 'Instance method!' do
+        it 'converts OBJECT into serializable representation' do
+          object = model_class.from_record(rec)
+          object.to_msg.should ==
+              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", "rec_time", 16.7, 89.89]
+        end
+      end # to_msg
+
+    end #serialization
+  end # with mock record
 end

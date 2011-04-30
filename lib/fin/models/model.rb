@@ -47,29 +47,23 @@ module Fin
       end
 
       # Using static calls, create class method extracting attributes from raw records
-#      required_attributes = []
-#      optional_attributes = []
       attribute_extractor = attribute_types.map do |name, type|
         case type
           when /^[ct]/ # TODO: In future, read t AsLong and convert into DateTime
-            ":#{name} => rec.GetValAsString('#{name}')"
+            "rec.GetValAsString('#{name}')"
           when /^i[14]/
-            ":#{name} => rec.GetValAsLong('#{name}')"
-          when /^i8opt/ # optional property
-            ":#{name} => (val = rec.GetValAsString('#{name}'); val.to_i if val)"
+            "rec.GetValAsLong('#{name}')"
           when /^i8/
-            ":#{name} => rec.GetValAsString('#{name}').to_i"
-          when /^[df].+?opt/ # optional property
-            ":#{name} => (val = rec.GetValAsString('#{name}'); val.to_f if val)"
+            "rec.GetValAsString('#{name}').to_i"
           when /^[df]/
-            ":#{name} => rec.GetValAsString('#{name}').to_f"
+            "rec.GetValAsString('#{name}').to_f"
           else
             raise "Unrecognized attribute type: #{name} => #{type}"
         end
       end.join(",\n")
 
       extractor_body = "def self.extract_attributes rec
-                          [{#{attribute_extractor}}]
+                          [#{attribute_extractor}]
                         end"
 
 #      puts "In #{self}:, #{extractor_body"
@@ -80,17 +74,24 @@ module Fin
       new *extract_attributes(rec)
     end
 
+    # Unpacks attributes into appropriate Model subclass
+    def self.from_msg msg
+      class_id = msg.shift
+      model_classes[class_id].new *msg
+    end
+
     # Extracts attributes from record into a serializable format (Array)
     # Returns an Array where 1st element is a model_class_id of our Model subclass,
-    # and second element is a list of arguments to its initialize.
+    # and second element is a list of arguments to its initialize. Class method!
     def self.to_msg rec
       extract_attributes(rec).unshift(model_class_id)
     end
 
-    # Unpacks attributes into appropriate Model subclass
-    def self.from_msg msg
-      class_id, args = msg
-      model_classes[class_id].new args
+    # Converts OBJECT attributes into a serializable format (Array)
+    # Returns an Array where 1st element is a model_class_id of our Model subclass,
+    # and second element is a list of arguments to its initialize. Instance method!
+    def to_msg
+      inject([self.class.model_class_id]) { |array, (name, _)| array << send(name) }
     end
 
     # TODO: Builder pattern, to avoid args Array creation on each initialize?
