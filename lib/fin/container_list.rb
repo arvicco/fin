@@ -22,12 +22,21 @@ module Fin
     end
 
     def add_record rec
-      add? @item_type.from_record(rec)
+      add? @item_type.from_record rec
     end
 
     def remove_record rec, id
       index = @item_type.index_for rec
       remove? self[index]
+    end
+
+    def add_message msg
+      add? @item_type.from_msg msg
+    end
+
+    def remove_message msg, id
+      item = @item_type.from_msg msg
+      remove? self[item.index]
     end
   end
 end

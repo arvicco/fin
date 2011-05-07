@@ -76,8 +76,8 @@ module Fin
 
     # Unpacks attributes into appropriate Model subclass
     def self.from_msg msg
-      class_id = msg.shift
-      model_classes[class_id].new *msg
+      class_id = msg.first
+      model_classes[class_id].new *msg[1..-1]
     end
 
     # Extracts attributes from record into a serializable format (Array)
