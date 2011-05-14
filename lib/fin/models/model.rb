@@ -7,7 +7,7 @@ module Fin
     include Enumerable
 
     def self.attribute_types
-      @attribute_types ||= superclass.attribute_types.dup rescue {}
+      @attribute_types ||= (superclass.attribute_types.dup rescue {})
     end
 
     def self.model_class_id value = nil
