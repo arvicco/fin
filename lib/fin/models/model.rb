@@ -20,7 +20,7 @@ module Fin
     end
 
     def self.model_classes
-      @model_classes ||= superclass.model_classes rescue {} #shared list for all subclasses
+      @model_classes ||= (superclass.model_classes rescue {}) #shared list for all subclasses
     end
 
     def self.property prop_hash

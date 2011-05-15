@@ -9,8 +9,14 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
+    gherkin (2.3.4)
+      json (~> 1.4.6)
+    gherkin (2.3.4-java)
+      json (~> 1.4.6)
     gherkin (2.3.4-x86-mingw32)
       json (~> 1.4.6)
+    json (1.4.6)
+    json (1.4.6-java)
     json (1.4.6-x86-mingw32)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
@@ -23,6 +29,8 @@ GEM
     term-ansicolor (1.0.5)
 
 PLATFORMS
+  java
+  ruby
   x86-mingw32
 
 DEPENDENCIES
