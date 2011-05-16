@@ -104,7 +104,7 @@ module Fin
 
     def each
       if block_given?
-        self.class.attribute_types.each { |name, _| yield name, send(name) }
+        self.class.attribute_types.each { |name, _| yield [name, send(name)] }
       else
         self.class.attribute_types.map { |name, _| [name, send(name)].to_enum }
       end

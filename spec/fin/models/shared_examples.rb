@@ -55,6 +55,8 @@ shared_examples_for 'model' do
 
   describe '#inspect' do
     it 'lists all properties' do
+#      p subject.inspect
+#      p subject.each.to_a
       subject.inspect.should == subject.map { |prop, value| "#{prop}=#{value}" }.join(',')
     end
   end
