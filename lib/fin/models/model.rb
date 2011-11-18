@@ -49,14 +49,17 @@ module Fin
       # Using static calls, create class method extracting attributes from raw records
       attribute_extractor = attribute_types.map do |name, type|
         case type
-          when /^[ct]/ # TODO: In future, read t AsLong and convert into DateTime
-            "rec.GetValAsString('#{name}')"
+           # TODO: Using indexes (...ByIndex) instead of names gives ~60% speed boost
           when /^i[14]/
             "rec.GetValAsLong('#{name}')"
           when /^i8/
             "rec.GetValAsString('#{name}').to_i"
           when /^[df]/
             "rec.GetValAsString('#{name}').to_f"
+          when /^[c]/
+            "rec.GetValAsString('#{name}')"
+          when /^[t]/ # "2009/12/01 12:35:44.785" => 20091201123544785
+            "rec.GetValAsVariant('#{name}')"
           else
             raise "Unrecognized attribute type: #{name} => #{type}"
         end

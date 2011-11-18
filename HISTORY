@@ -37,3 +37,7 @@
 == 0.1.4 / 2011-05-16
 
 * Model#each tweak
+
+== 0.1.5 / 2011-11-18
+
+* Datetime fields read as Integer now

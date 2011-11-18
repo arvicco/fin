@@ -137,6 +137,12 @@ describe Fin::Model, "as a base class for BD models" do
               15
           end
         end
+        mock.stub(:GetValAsVariant) do |field|
+          case field
+            when 'time'
+              20100101003030000
+          end
+        end
       end
     end
 
@@ -196,7 +202,7 @@ describe Fin::Model, "as a base class for BD models" do
         object.bar.should == 15
         object.longint.should == 1322222222455664
         object.name.should == 'rec_name'
-        object.time.should == 'rec_time'
+        object.time.should == 20100101003030000
         object.price.should be_within(0.0001).of(16.7)
         object.net.should be_within(0.0001).of(89.89)
       end
@@ -223,7 +229,7 @@ describe Fin::Model, "as a base class for BD models" do
           object.bar.should == 15
           object.longint.should == 1322222222455664
           object.name.should == 'rec_name'
-          object.time.should == 'rec_time'
+          object.time.should == 20100101003030000
           object.price.should be_within(0.0001).of(16.7)
           object.net.should be_within(0.0001).of(89.89)
         end
@@ -232,15 +238,16 @@ describe Fin::Model, "as a base class for BD models" do
       describe '.to_msg', 'Class method!' do
         it 'converts RECORD into serializable representation' do
           model_class.to_msg(rec).should ==
-              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", "rec_time", 16.7, 89.89]
+              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", 20100101003030000 , 16.7, 89.89]
         end
       end # to_msg
+
 
       describe '#to_msg', 'Instance method!' do
         it 'converts OBJECT into serializable representation' do
           object = model_class.from_record(rec)
           object.to_msg.should ==
-              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", "rec_time", 16.7, 89.89]
+              [1313, 11, 12, 13, 14, 15, 1322222222455664, "rec_name", 20100101003030000 , 16.7, 89.89]
         end
       end # to_msg
 
