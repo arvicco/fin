@@ -111,14 +111,6 @@ describe Fin::Model, "as a base class for BD models" do
       mock('record').tap do |mock|
         mock.stub(:GetValAsString) do |field|
           case field
-            when 'replID'
-              '11'
-            when 'replRev'
-              '12'
-            when 'replAct'
-              '13'
-            when 'longint'
-              '1322222222455664'
             when 'name'
               'rec_name'
             when 'time'
@@ -139,8 +131,16 @@ describe Fin::Model, "as a base class for BD models" do
         end
         mock.stub(:GetValAsVariant) do |field|
           case field
+            when 'longint'
+              1322222222455664
             when 'time'
               20100101003030000
+            when 'replID'
+              11
+            when 'replRev'
+              12
+            when 'replAct'
+              13
           end
         end
       end

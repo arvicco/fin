@@ -53,7 +53,7 @@ module Fin
           when /^i[14]/
             "rec.GetValAsLong('#{name}')"
           when /^i8/
-            "rec.GetValAsString('#{name}').to_i"
+            "rec.GetValAsVariant('#{name}')"
           when /^[df]/
             "rec.GetValAsString('#{name}').to_f"
           when /^[c]/
@@ -85,14 +85,14 @@ module Fin
 
     # Extracts attributes from record into a serializable format (Array)
     # Returns an Array where 1st element is a model_class_id of our Model subclass,
-    # and second element is a list of arguments to its initialize. Class method!
+    # followed by a list of arguments to its initialize. Class method!
     def self.to_msg rec
       extract_attributes(rec).unshift(model_class_id)
     end
 
     # Converts OBJECT attributes into a serializable format (Array)
     # Returns an Array where 1st element is a model_class_id of our Model subclass,
-    # and second element is a list of arguments to its initialize. Instance method!
+    # followed by a list of arguments to its initialize. Instance method!
     def to_msg
       inject([self.class.model_class_id]) { |array, (name, _)| array << send(name) }
     end

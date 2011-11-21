@@ -41,3 +41,7 @@
 == 0.1.5 / 2011-11-18
 
 * Datetime fields read as Integer now
+
+== 0.1.6 / 2011-11-21
+
+* Int64 [:i8] fields read as Variant now
