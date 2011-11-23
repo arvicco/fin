@@ -38,7 +38,8 @@ describe Fin::Order do
       {:repl_id => 12,
        :amount => 12345,
        :price => 1234,
-       :dir => 1
+       :dir => 1,
+       :local_stamp => 20100101003030000
       }
     end
     subject { Fin::Order.new property_hash }

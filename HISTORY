@@ -45,3 +45,4 @@
 == 0.1.6 / 2011-11-21
 
 * Int64 [:i8] fields read as Variant now
+* Fin::Order :local_stamp property added
